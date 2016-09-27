@@ -1,14 +1,15 @@
-##### AI-projekt
+## AI-projekt
 
 Här kan vi spåna på idéer
 ...
 
-## Fokus
+#### Fokus
 - Koordination av robotar.
 - Potentialfält.
 
-## Problem
+#### Problem
 - Bilar i korsning.
 - Robotdammsugare.
+- Komponera musik.
 
 
