@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[parfill]{parskip}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+
+\title{Team 2: Project proposal}
+\author{ Mårten Nilsson (\texttt{marten3@kth.se}), Patrik Barkman (\texttt{barkm@kth.se})\\ Axel Demborg (\texttt{demborg@kth.se}), Elon Såndberg (\texttt{elons@kth.se})}
+\date{September 2016}
+
+\begin{document}
+
+\maketitle
+
+\thispagestyle{empty}
+
+
+\section{Project topic and problem formulation}
+Multi-agent planning for completing a task as efficiently as possible is the topic we have chosen to examine in this project. The problem we have chosen to adress is how to coordinate multiple agents for search and exploration tasks.  
+
+\section{Suggestion of case study}
+
+3-5 agents exploring a two dimensional discrete maze is our choice of case study. The idea is to get the agents to explore the maze as time efficiently as possible in order to build a complete map of the environment. The agents will always be able to communicate with each other and the representation of the environment is the same for all agents. One central planner controlls all the agents and stores the representation of the environment. 
+
+An extension is to add a resource to the environment, of which the agents is supposed to collect and return to a specified point.  
+
+\section{Concepts to study}
+The concepts to be studied to bring this project to fruition follows:
+
+\begin{itemize}
+\item Heuristics for search and exploration. 
+\item Termination conditions for search and exploration.
+\item Search algorithms. 
+\item Multibody planning.
+\item Coordination and collaboration.
+\end{itemize}
+
+\section{Litterature}
+The thrre first sources of scientific litterature to be read up on follows:
+
+\begin{itemize}
+\item Chapter $11.4$ in \textit{Artificial Intelligence, a modern approach} by Stuart Russel and Peter Norvig.
+\item The article \textit{Brick\&Mortar: an on-line multi-agent exploration algorithm} by Ferranti, Trigoni and Levene.
+\item The chapter \textit{A Multi-agent Flooding Algorithm for Search and Rescue Operations in Unknown Terrain} by Beckner et. al in the book \textit{Multiagent system technologies}.
+\item The article \textit{Coordination for Multi-Robot Exploration and Mapping} by Simmons et. al.
+\end{itemize}
+
+\section{Ambitions}
+We will implement most of the algorithms ourselves and hence we aim for a $3$ in Dp, $2$ in Br, $3$ in Im and $2$ in analysis.
+
+\section{Half way through}
+At 50\% completion of the project we expect to have performed:
+
+\begin{itemize}
+\item Relevant litterature should have been read up on.
+\item A set of testing maps have been created.
+\item Code for a naive operational agent should be implemented.
+\item Desicion of algorithms to implement to perfect the agent should have been taken.
+\item Some of these algorithms should be implemented.
+\item A report skeleton have been created.
+\end{itemize}
+
+\section{Finished project}
+When the project is finished we expext to have:
+
+\begin{itemize}
+\item A working demo.
+\item A polished report.
+\item A presentation.
+\item An agent that outperforms the naive agent.
+\item Comprehensive data of agent performance.
+\end{itemize}
+
+\section{Work plan}
+Our work plan follows:
+
+\begin{itemize}
+\item Aquiring and studying litterature (16 ph).
+\item Building framework for agents (28 ph).
+\item Planning method to implement (6 ph).
+\item Implementing sophisticated methods (28 ph).
+\item Performance evaluation and testing (12 ph).
+\item Writing report (16 ph).
+\item Preparing presentation (8 ph).
+
+\end{itemize}
+
+\end{document}
