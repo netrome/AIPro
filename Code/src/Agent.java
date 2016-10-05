@@ -1,4 +1,4 @@
-import java.util.Vector;
+import java.util.List;
 
 /**
  * The class that holds the position of an agent on a maze, as well as gets the possible moves for this position
@@ -15,11 +15,14 @@ public class Agent {
     }
 
     /**
-     *
+     * Get the possible moves for this agent
      */
-    public Vector<int[]> getPossibleMoves(){
-        Vector<int[]> moves = new Vector<>();
+    public List<int[]> getPossibleMoves(Maze maze){
+        return maze.getNeighbours(xpos, ypos);
+    }
 
+    public void move(int x, int y, Maze maze){
+        return maze.move(xpos, ypos);
     }
 
 }
