@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,16 @@ public class Agent {
      * Get the possible moves for this agent
      */
     public List<int[]> getPossibleMoves(){
-        return maze.getNeighbours(xpos, ypos);
+        List neighbours = maze.getNeighbours(xpos, ypos);
+        List<int []> moves = new ArrayList<>();
+
+        for (int[] cord : neighbours){
+            if (!maze.getCell(cord[0], cord[1]).isWall()){
+                moves.add(cord);
+            }
+        }
+
+        return moves
     }
 
     public void move(int x, int y){

@@ -13,6 +13,9 @@ public class Maze {
     // Wall probability
     private static double WALL_PROB = 0.7;
 
+    /**
+     * Constructor
+      */
 	public Maze(){
 	}
 	
@@ -20,6 +23,20 @@ public class Maze {
 		this.setMaze(mazeData);
 	}
 
+    /**
+     * Getters
+     */
+    public int getWidth(){
+        return mazeData.length;
+    }
+
+    public int getHeight(){
+        return mazeData[0].length;
+    }
+
+    public Cell getCell(int x, int y){
+        return mazeData[x][y];
+    }
 	public Cell[][] getMaze() {
 		return mazeData;
 	}
@@ -27,8 +44,49 @@ public class Maze {
 	public void setMaze(Cell[][] mazeData) {
 		this.mazeData = mazeData;
 	}
-	
-	public void randomMaze(int width,int height){
+
+    /**
+     * Returns a list of neighbouring cells.
+     */
+    public List<int[]> getNeighbours(int x, int y){
+
+        List<int[]> neighbourList = new ArrayList<int[]>();
+
+        for(int i = -1; i <= 1; i+=2){
+            for(int j = -1; j <= 1; j+=2){
+                if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
+                    neighbourList.add(new int[]{x + i, y + j});
+                }
+            }
+        }
+
+        return neighbourList;
+    }
+
+    /**
+     * Called when an agent is moved to a cell.
+     * All neighbouring cells is found and payload is set for the current cell.
+     */
+    public void discover(int x, int y){
+        List<int[]> neigbours = getNeighbours(x, y);
+        for (int[] cord : neigbours){
+            Cell cell = getCell(cord[0], cord[1]);
+            cell.isFound() = true;
+        }
+
+        getCell(x, y).setPayload(1); //Magic number
+
+    }
+
+    /**
+     * Maze creation methods
+     *
+     *
+     *
+     *
+     *
+     */
+    public void randomMaze(int width,int height){
 		Cell[][] newMazeData = new Cell[width][height];
 
 		for (int x = 0; x < width; x++){
@@ -45,39 +103,8 @@ public class Maze {
 
 		setMaze(newMazeData);
 	}
-	
-	public int getWidth(){
-		return mazeData.length;
-	}
-	
-	public int getHeight(){
-		return mazeData[0].length;
-	}
-
-	/**
-	 * Get the cell at a certain position
-	 */
-	public Cell getCell(int x, int y){
-		return mazeData[x][y];
-	}
 
 
-    public List<int[]> getNeighbours(int x, int y){
-        
-        List<int[]> neighbourList = new ArrayList<int[]>();
-
-        for(int i = -1; i <= 1; i+=2){
-            for(int j = -1; j <= 1; j+=2){
-                if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
-                    neighbourList.add(new int[]{x + i, y + j});
-                }           
-            } 
-        }
-
-        return neighbourList;
-    }
-    
-    
 	public void primsMaze(int width,int height){
         
 		Cell[][] newMazeData = new Cell[width][height];
