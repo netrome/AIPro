@@ -10,7 +10,7 @@ public class RandomPlayer implements Player {
     }
 
     @Override
-    public State play(State gamestate) {
+    public State play(State gameState) {
         return null;
     }
 }
