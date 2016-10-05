@@ -8,40 +8,35 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MazeGui extends JFrame{
-	private MazeView view;
-	
-	public MazeGui(Maze maze, int pixelSize){
-		view = new MazeView(maze,pixelSize);
-		int widthDim = maze.getWidth() * pixelSize;
-		int heightDim = maze.getHeight() * pixelSize;
-		this.setPreferredSize(new Dimension(widthDim+16, heightDim+40));
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.add(view);
-		this.pack();
-		this.setVisible(true);
-	}
-	
-	public MazeGui(Maze maze){
-		this(maze,5);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-private class MazeView extends JPanel{
-	private Maze maze;
-	private int width;
-	
-	public MazeView(Maze maze, int width){
-		this.maze = maze;
-		this.width = width;
-	}
-	
+public class MazeGui extends JFrame {
+    private MazeView view;
+
+    public MazeGui(Maze maze, int pixelSize) {
+        view = new MazeView(maze, pixelSize);
+        int widthDim = maze.getWidth() * pixelSize;
+        int heightDim = maze.getHeight() * pixelSize;
+        this.setPreferredSize(new Dimension(widthDim + 16, heightDim + 40));
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.add(view);
+        this.pack();
+        this.setVisible(true);
+    }
+
+    public MazeGui(Maze maze) {
+        this(maze, 5);
+    }
+
+
+    private class MazeView extends JPanel {
+        private Maze maze;
+        private int width;
+
+        public MazeView(Maze maze, int width) {
+            this.maze = maze;
+            this.width = width;
+        }
+
+	/*
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -58,6 +53,9 @@ private class MazeView extends JPanel{
 						width,width));
 			}
 		}
+		*/
+    }
 }
-}
-}
+
+
+

@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 import java.util.Collections;
 
+/**
+ * The class that holds all the cells, and functions to get them
+ */
 public class Maze {
 
     // Wall probability
@@ -48,6 +51,13 @@ public class Maze {
 	
 	public int getHeight(){
 		return mazeData[0].length;
+	}
+
+	/**
+	 * Get the cell at a certain position
+	 */
+	public Cell getCell(int x, int y){
+		return mazeData[x][y];
 	}
 
 
@@ -115,6 +125,7 @@ public class Maze {
 	*/
 
 
+    /*
 	public void easyfy(double chance){
 		for (int x = 0; x < getWidth(); x++){
 			for (int y = 0; y < getHeight(); y++){
@@ -124,7 +135,6 @@ public class Maze {
                     }
                 }
             }
-        }
-	}
+        }*/
 
 }

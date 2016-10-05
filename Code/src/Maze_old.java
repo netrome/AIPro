@@ -1,13 +1,13 @@
 import java.util.LinkedList;
 import java.util.Collections;
 
-public class Maze {
+public class Maze_old {
 	private int[][] mazeData;
 	
-	public Maze(){
+	public Maze_old(){
 	}
 	
-	public Maze(int[][] mazeData){
+	public Maze_old(int[][] mazeData){
 		this.setMaze(mazeData);
 	}
 
@@ -108,6 +108,7 @@ public class Maze {
 						}}}}
 	}
 
+	/*
 	public static void main(String[] args){
 		int[][] mazeData = {{0,1,0,1,0},{0,1,0,1,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,1}};
 		Maze maze = new Maze();
@@ -116,6 +117,6 @@ public class Maze {
 		maze.easyfy(0.9);
 		
 		new MazeGui(maze);
-	}
+	}*/
 
 }
