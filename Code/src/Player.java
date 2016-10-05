@@ -4,5 +4,5 @@
  */
 public interface Player {
 
-    State play(State gamestate);
+    State play(State gameState);
 }

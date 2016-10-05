@@ -6,5 +6,4 @@ public class State {
     Agent[] agents;
     Maze maze;
 
-
 }

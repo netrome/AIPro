@@ -57,6 +57,7 @@ local.properties
 *.idea
 .idea
 *out
+*.iml
 
 # Java
 *.class
