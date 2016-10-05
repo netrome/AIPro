@@ -3,7 +3,11 @@
  * Created by marten on 2016-10-05.
  */
 public class State {
-    Agent[] agents;
-    Maze maze;
+    protected Agent[] agents;
+    protected Maze maze;
 
+    public State(Agent[] agents, Maze maze){
+        this.agents = agents;
+        this.maze = maze;
+    }
 }

@@ -71,7 +71,7 @@ public class Maze {
         List<int[]> neigbours = getNeighbours(x, y);
         for (int[] cord : neigbours){
             Cell cell = getCell(cord[0], cord[1]);
-            cell.isFound() = true;
+            cell.setFound(true);
         }
 
         getCell(x, y).setPayload(1); //Magic number

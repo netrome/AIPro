@@ -23,6 +23,10 @@ public class Cell {
         this.isWall = isWall;
     }
 
+    public void setFound(boolean found) {
+        isFound = found;
+    }
+
     public boolean isFound() {
         return isFound;
     }

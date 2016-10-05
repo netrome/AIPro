@@ -19,7 +19,7 @@ public class Agent {
      * Get the possible moves for this agent
      */
     public List<int[]> getPossibleMoves(){
-        List neighbours = maze.getNeighbours(xpos, ypos);
+        List<int []> neighbours = maze.getNeighbours(xpos, ypos);
         List<int []> moves = new ArrayList<>();
 
         for (int[] cord : neighbours){
@@ -28,13 +28,13 @@ public class Agent {
             }
         }
 
-        return moves
+        return moves;
     }
 
     public void move(int x, int y){
         xpos = x;
         ypos = y;
-        return maze.move(xpos, ypos);
+        maze.discover(x, y);
     }
 
 }
