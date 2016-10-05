@@ -9,7 +9,7 @@ public class Agent {
     private int xpos;
     private int ypos;
 
-    public Agent(int x, int y){
+    public Agent(int x, int y, Maze maze){
         xpos = x;
         ypos = y;
     }
@@ -17,11 +17,11 @@ public class Agent {
     /**
      * Get the possible moves for this agent
      */
-    public List<int[]> getPossibleMoves(Maze maze){
+    public List<int[]> getPossibleMoves(){
         return maze.getNeighbours(xpos, ypos);
     }
 
-    public void move(int x, int y, Maze maze){
+    public void move(int x, int y){
         return maze.move(xpos, ypos);
     }
 
