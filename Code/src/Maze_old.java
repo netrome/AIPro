@@ -59,41 +59,42 @@ public class Maze_old {
 			int[] cord = wallList.pop();
 			x =cord[0]; y = cord[1];
 			if (x<width-1 && x>0 && y<height-1 && y>0){
-			if (newMazeData[x+1][y]+newMazeData[x-1][y]+newMazeData[x][y+1]+newMazeData[x][y-1]==3){
-				newMazeData[x][y]=0;
-				if (newMazeData[x+1][y]==0){
-					if (x>1){
-						newMazeData[x-1][y]=0;
-						if(newMazeData[x-2][y]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-2,y});
-					}
-					if(newMazeData[x-1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y+1});
-					if(newMazeData[x-1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y-1});
-				}
-				if (newMazeData[x-1][y]==0){
-					if (x<width-2){
-						newMazeData[x+1][y]=0;
-						if(newMazeData[x+2][y]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+2,y});
-					}
-					if(newMazeData[x+1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y+1});
-					if(newMazeData[x+1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y-1});
-				}
-				if (newMazeData[x][y+1]==0){
-					if (y>1){
-						newMazeData[x][y-1]=0;
-						if(newMazeData[x][y-2]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x,y-2});
-					}
-					if(newMazeData[x+1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y-1});
-					if(newMazeData[x-1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y-1});
-				}
-				if (newMazeData[x][y-1]==0){
-					if (y<height-2){
-						newMazeData[x][y+1]=0;
-						if(newMazeData[x][y+2]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x,y+2});
-					}
-					if(newMazeData[x+1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y+1});
-					if(newMazeData[x-1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y+1});
-				}
-			}}
+                if (newMazeData[x+1][y]+newMazeData[x-1][y]+newMazeData[x][y+1]+newMazeData[x][y-1]==3){
+                    newMazeData[x][y]=0;
+                    if (newMazeData[x+1][y]==0){
+                        if (x>1){
+                            newMazeData[x-1][y]=0;
+                            if(newMazeData[x-2][y]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-2,y});
+                        }
+                        if(newMazeData[x-1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y+1});
+                        if(newMazeData[x-1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y-1});
+                    }
+                    if (newMazeData[x-1][y]==0){
+                        if (x<width-2){
+                            newMazeData[x+1][y]=0;
+                            if(newMazeData[x+2][y]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+2,y});
+                        }
+                        if(newMazeData[x+1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y+1});
+                        if(newMazeData[x+1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y-1});
+                    }
+                    if (newMazeData[x][y+1]==0){
+                        if (y>1){
+                            newMazeData[x][y-1]=0;
+                            if(newMazeData[x][y-2]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x,y-2});
+                        }
+                        if(newMazeData[x+1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y-1});
+                        if(newMazeData[x-1][y-1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y-1});
+                    }
+                    if (newMazeData[x][y-1]==0){
+                        if (y<height-2){
+                            newMazeData[x][y+1]=0;
+                            if(newMazeData[x][y+2]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x,y+2});
+                        }
+                        if(newMazeData[x+1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x+1,y+1});
+                        if(newMazeData[x-1][y+1]!=0)wallList.add((int)Math.round(wallList.size()*Math.random()),new int[]{x-1,y+1});
+                    }
+                }
+            }
 		}
 		newMazeData[xs][ys] = 10;
 		setMaze(newMazeData);
@@ -108,15 +109,14 @@ public class Maze_old {
 						}}}}
 	}
 
-	/*
 	public static void main(String[] args){
 		int[][] mazeData = {{0,1,0,1,0},{0,1,0,1,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,1}};
 		Maze maze = new Maze();
 		System.out.println("here");
 		maze.primsMaze(100, 100);
-		maze.easyfy(0.9);
+		//maze.easyfy(0.9);
 		
 		new MazeGui(maze);
-	}*/
+	}
 
 }
