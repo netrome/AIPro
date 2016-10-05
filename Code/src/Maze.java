@@ -6,12 +6,14 @@ import java.util.Collections;
  */
 public class Maze {
 
+    /* Intrinsic variables */
+    // Store cells
+    private Cell[][] mazeData;
+
+    /* Parameters for generationn */
     // Wall probability
     private static double WALL_PROB = 0.7;
 
-    // Store cells
-	private Cell[][] mazeData;
-	
 	public Maze(){
 	}
 	
@@ -206,6 +208,7 @@ public class Maze {
             }
         }
     }
+
 
 	public static void main(String[] args){
 		Maze maze = new Maze();
