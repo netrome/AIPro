@@ -8,10 +8,10 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class MazeGui extends JFrame {
+public class MazeGui_old extends JFrame {
     private MazeView view;
 
-    public MazeGui(Maze maze, int pixelSize) {
+    public MazeGui_old(Maze_old maze, int pixelSize) {
         view = new MazeView(maze, pixelSize);
         int widthDim = maze.getWidth() * pixelSize;
         int heightDim = maze.getHeight() * pixelSize;
@@ -22,16 +22,16 @@ public class MazeGui extends JFrame {
         this.setVisible(true);
     }
 
-    public MazeGui(Maze maze) {
+    public MazeGui_old(Maze_old maze) {
         this(maze, 5);
     }
 
 
     private class MazeView extends JPanel {
-        private Maze maze;
+        private Maze_old maze;
         private int width;
 
-        public MazeView(Maze maze, int width) {
+        public MazeView(Maze_old maze, int width) {
             this.maze = maze;
             this.width = width;
         }
@@ -44,7 +44,7 @@ public class MazeGui extends JFrame {
                 for (int y = 0; y<maze.getMaze()[0].length; y++){
 
                     g2.setPaint(Color.WHITE);
-                    if (maze.getMaze()[x][y].isWall()){
+                    if (maze.getMaze()[x][y] == 1){
                         g2.setPaint(Color.BLACK);
                     }
                     g2.fill(new Rectangle2D.Double(x*width, y*width,
