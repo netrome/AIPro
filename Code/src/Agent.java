@@ -22,6 +22,8 @@ public class Agent {
     }
 
     public void move(int x, int y){
+        xpos = x;
+        ypos = y;
         return maze.move(xpos, ypos);
     }
 
