@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         Maze maze = new Maze();
-        Player player = new Player();
+        Player player = new RandomPlayer();
         Cell cell = new Cell();
     }
 }

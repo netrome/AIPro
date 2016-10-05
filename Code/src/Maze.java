@@ -1,17 +1,18 @@
-import java.util.LinkedList;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * The class that holds all the cells, and functions to get them
  */
 public class Maze {
 
+    /* Intrinsic variables */
+    // Store cells
+    private Cell[][] mazeData;
+
+    /* Parameters for generationn */
     // Wall probability
     private static double WALL_PROB = 0.7;
 
-    // Store cells
-	private Cell[][] mazeData;
-	
 	public Maze(){
 	}
 	
@@ -61,6 +62,21 @@ public class Maze {
 	}
 
 
+    public List<int[]> getNeighbours(int x, int y){
+        
+        List<int[]> neighbourList = new ArrayList<int[]>();
+
+        for(int i = -1; i <= 1; i+=2){
+            for(int j = -1; j <= 1; j+=2){
+                if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
+                    neighbourList.add(new int[]{x + i, y + j});
+                }           
+            } 
+        }
+
+        return neighbourList;
+    }
+    
     
 	public void primsMaze(int width,int height){
         
@@ -206,6 +222,7 @@ public class Maze {
             }
         }
     }
+
 
 	public static void main(String[] args){
 		Maze maze = new Maze();
