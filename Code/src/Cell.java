@@ -13,6 +13,7 @@ public class Cell {
     public Cell(){
         isFound = false;
         isWall = false;
+        payload = 0;
     }
 
     /**
