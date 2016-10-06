@@ -22,6 +22,20 @@ public class Maze {
 	public Maze(Cell[][] mazeData){
 		this.setMaze(mazeData);
 	}
+	
+	/**
+     * returns a clone of the maze
+     */
+	public Maze clone(){
+		Maze retMaze = new Maze();
+		Cell[][] retData = new Cell[getWidth()][getHeight()];
+		for (int x = 0; x <getWidth() ; x++){
+			for (int y = 0; y < getHeight(); y++){
+				retData[x][y] = getCell(x,y).clone();
+			}}
+		retMaze.setMaze(retData);
+		return retMaze;
+	}
 
     /**
      * Getters
@@ -49,25 +63,28 @@ public class Maze {
      * Returns a list of neighbouring cells.
      */
     public List<int[]> getNeighbours(int x, int y){
-
         List<int[]> neighbourList = new ArrayList<int[]>();
-
-        for(int i = -1; i <= 1; i+=2){
-            for(int j = -1; j <= 1; j+=2){
+     // Vi fick bara diagonal rutorna när det var +=2.
+        for(int i = -1; i <= 1; i++){
+            for(int j = -1; j <= 1; j++){
                 if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
+                	if (i!=0 ^ j!=0 ){
                     neighbourList.add(new int[]{x + i, y + j});
+                	}
                 }
             }
         }
 
         return neighbourList;
     }
+    
 
     /**
      * Called when an agent is moved to a cell.
      * All neighbouring cells is found and payload is set for the current cell.
      */
     public void discover(int x, int y){
+    	getCell(x, y).setFound(true);
         List<int[]> neigbours = getNeighbours(x, y);
         for (int[] cord : neigbours){
             Cell cell = getCell(cord[0], cord[1]);
@@ -104,7 +121,9 @@ public class Maze {
 		setMaze(newMazeData);
 	}
 
-
+    /**
+     * generates a maze using prim's algorithm
+     */
 	public void primsMaze(int width,int height){
         
 		Cell[][] newMazeData = new Cell[width][height];
@@ -237,10 +256,12 @@ public class Maze {
     }
 	
 
-
+	/**
+     * removes walls with a certain chance
+     */
 	public void easyfy(double chance){
-		for (int x = 0; x < getWidth(); x++){
-			for (int y = 0; y < getHeight(); y++){
+		for (int x = 1; x < getWidth()-1; x++){
+			for (int y = 1; y < getHeight()-1; y++){
 				if (mazeData[x][y].isWall()){
 					if(Math.random() > chance){
 						mazeData[x][y] = new Cell(false);
@@ -249,7 +270,45 @@ public class Maze {
             }
         }
     }
-
+	
+	/**
+     * returns true if all the non wall cells have been explored
+     */
+	public boolean isExplored(){
+		for (int x = 1; x < getWidth()-1; x++){
+			for (int y = 1; y < getHeight()-1; y++){
+				if (!mazeData[x][y].isWall() && !mazeData[x][y].isFound()){
+					return false;
+				}}}
+		return true;
+	}
+	
+	/**
+     * returns the number of explored cells
+     */
+	public int getExplored(){
+		int ret = 0;
+		for (int x = 1; x < getWidth()-1; x++){
+			for (int y = 1; y < getHeight()-1; y++){
+				if (mazeData[x][y].isFound()){
+					ret++;
+				}}}
+		return ret;
+	}
+	
+	/**
+     * returns a random position which is not a wall
+     */
+	public int[] getFreePos(){
+		List<int[]> freePos = new ArrayList<int[]>();
+		for (int x = 1; x < getWidth()-1; x++){
+			for (int y = 1; y < getHeight()-1; y++){
+				if (!mazeData[x][y].isWall()){
+					freePos.add(new int[]{x,y});
+				}
+			}}
+		return freePos.get((int)(Math.random()*freePos.size()));
+	}
 
 	public static void main(String[] args){
 		Maze maze = new Maze();

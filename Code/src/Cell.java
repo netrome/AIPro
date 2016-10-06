@@ -15,6 +15,19 @@ public class Cell {
         isWall = false;
         payload = 0;
     }
+    
+    public Cell(boolean found, boolean wall, double payloadIn){
+        isFound = found;
+        isWall = wall;
+        payload = payloadIn;
+    }
+    
+    /**
+     * returns a clone of the cell
+     */
+    public Cell clone(){
+    	return new Cell(isFound,isWall,payload);
+    }
 
     /**
      * Creates a cell with information regarding if it is a wall

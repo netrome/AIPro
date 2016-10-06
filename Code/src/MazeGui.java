@@ -12,6 +12,7 @@ public class MazeGui extends JFrame {
     private MazeView view;
 
     public MazeGui(Maze maze, int pixelSize) {
+    	super();
         view = new MazeView(maze, pixelSize);
         int widthDim = maze.getWidth() * pixelSize;
         int heightDim = maze.getHeight() * pixelSize;
@@ -25,15 +26,33 @@ public class MazeGui extends JFrame {
     public MazeGui(Maze maze) {
         this(maze, 5);
     }
+    
+    public void updateAgentPos(Agent[] agents){
+    	int[][] tempPos = new int[agents.length][2];
+    	for (int i = 0; i<agents.length; i++){
+    		tempPos[i] = new int[]{agents[i].getX(),agents[i].getY()};
+    	}
+    	view.setAgentPos(tempPos);
+    }
+    
+    public void changeMaze(Maze newMaze){
+    	view.maze=newMaze;
+    }
 
 
     private class MazeView extends JPanel {
         private Maze maze;
         private int width;
+        private int[][] agentPositions = new int[0][0];
 
         public MazeView(Maze maze, int width) {
+        	super();
             this.maze = maze;
             this.width = width;
+        }
+        
+        public void setAgentPos(int[][] agentPos){
+        	agentPositions=agentPos;
         }
     
         public void paintComponent(Graphics g){
@@ -47,9 +66,17 @@ public class MazeGui extends JFrame {
                     if (maze.getMaze()[x][y].isWall()){
                         g2.setPaint(Color.BLACK);
                     }
+                    else if (maze.getMaze()[x][y].isFound()){
+                        g2.setPaint(Color.GREEN);
+                    }
                     g2.fill(new Rectangle2D.Double(x*width, y*width,
                                 width,width));
                 }
+            }
+            for (int[] pos : agentPositions){
+            	g2.setPaint(Color.RED);
+            	g2.fill(new Rectangle2D.Double(pos[0]*width, pos[1]*width,
+                        width,width));
             }
 
         }

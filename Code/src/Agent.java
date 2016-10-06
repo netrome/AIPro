@@ -13,6 +13,14 @@ public class Agent {
     public Agent(int x, int y, Maze maze){
         xpos = x;
         ypos = y;
+        this.maze=maze;
+    }
+    
+    /**
+     * returns a clone of the agent belonging to the stated maze.
+     */
+    public Agent clone(Maze maze){
+    	return new Agent(xpos,ypos,maze);
     }
 
     /**
@@ -35,6 +43,14 @@ public class Agent {
         xpos = x;
         ypos = y;
         maze.discover(x, y);
+    }
+    
+    public int getX(){
+    	return xpos;
+    }
+    
+    public int getY(){
+    	return ypos;
     }
 
 }
