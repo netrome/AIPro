@@ -1,13 +1,16 @@
 import java.util.List;
 
 /**
+ * The deep ants player is an ants player with the ability too look forward a number of steps
+ * ...not implemented yet
+ *
  * The ants player moves in the direction of the lowest payload.
  * Before moving the ant releases a feromone which increases the payload of the current cell.
  * Edit-the ant releases the feromone onto the cell it is heading towards
  */
-public class AntsPlayer implements Player {
+public class DeepAntsPlayer implements Player {
 
-    public AntsPlayer() {
+    public DeepAntsPlayer() {
 
     }
 
@@ -25,7 +28,7 @@ public class AntsPlayer implements Player {
                 double payload = gameState.maze.getCell(move).getPayload();
                 if (payload < minPayload){
                     bestmove = move;
-                    minPayload = payload;
+                    minPayload = payload*1;
                 }
             }
 

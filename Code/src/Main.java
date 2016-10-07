@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Maze maze = new Maze();
         maze.primsMaze(50, 50);
-        maze.easyfy(0.5);
+        maze.easyfy(1);
         Player player = new AntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
