@@ -71,6 +71,7 @@ public class MazeGui extends JFrame {
                     }
                     else if (maze.getCell(x,y).getPayload() > 0){
                         int blue = (int)Math.round(maze.getCell(x,y).getPayload());
+                        blue = 50+25*blue;
                         if(blue > 255 ) blue = 255;
                         g2.setPaint(new Color(0,0,blue));
                     }
