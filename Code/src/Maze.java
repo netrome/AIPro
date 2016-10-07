@@ -51,6 +51,7 @@ public class Maze {
     public Cell getCell(int x, int y){
         return mazeData[x][y];
     }
+    public Cell getCell(int[] pos){ return getCell(pos[0], pos[1]); }
 	public Cell[][] getMaze() {
 		return mazeData;
 	}
@@ -64,7 +65,7 @@ public class Maze {
      */
     public List<int[]> getNeighbours(int x, int y){
         List<int[]> neighbourList = new ArrayList<int[]>();
-     // Vi fick bara diagonal rutorna när det var +=2.
+     // Vi fick bara diagonal rutorna nï¿½r det var +=2.
         for(int i = -1; i <= 1; i++){
             for(int j = -1; j <= 1; j++){
                 if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
