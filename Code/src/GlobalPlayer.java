@@ -2,12 +2,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The random player only makes random moves
- * Created by marten on 2016-10-05.
+ * The player only makes random moves
  */
-public class RandomPlayer implements Player {
+public class GlobalPlayer implements Player {
 
-    public RandomPlayer(){
+    public GlobalPlayer(){
 
     }
 

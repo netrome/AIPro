@@ -3,11 +3,10 @@ import java.util.List;
 
 /**
  * The random player only makes random moves
- * Created by marten on 2016-10-05.
  */
-public class RandomPlayer implements Player {
+public class BrickMortarPlayer implements Player {
 
-    public RandomPlayer(){
+    public BrickMortarPlayer(){
 
     }
 
