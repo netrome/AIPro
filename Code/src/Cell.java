@@ -5,6 +5,8 @@
 public class Cell {
     private boolean isFound; // A cell is found if an agent has been to a neighbouring cell
     private boolean isWall; // Cant go on walls
+    private int agentID; //Index of the agent that "owns" this cell
+    private int[] parent; //points in the direction of the owner cell
     private double payload; // A value the agent can use
 
     /**
@@ -36,8 +38,24 @@ public class Cell {
         this.isWall = isWall;
     }
 
+    public int getAgentID() {
+        return agentID;
+    }
+
+    public int[] getParent() {
+        return parent;
+    }
+
     public void setFound(boolean found) {
         isFound = found;
+    }
+
+    public void setAgentID(int agentID) {
+        this.agentID = agentID;
+    }
+
+    public void setParent(int[] parent) {
+        this.parent = parent;
     }
 
     public boolean isFound() {
