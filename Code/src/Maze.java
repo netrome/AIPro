@@ -92,8 +92,6 @@ public class Maze {
             cell.setFound(true);
         }
 
-        getCell(x, y).setPayload(1); //Magic number
-
     }
 
     /**

@@ -5,7 +5,7 @@
 public class Cell {
     private boolean isFound; // A cell is found if an agent has been to a neighbouring cell
     private boolean isWall; // Cant go on walls
-    private double payload; // A value the agent can use
+    private double payload = 0; // A value the agent can use
 
     /**
      * Constructs an empty cell
@@ -55,4 +55,6 @@ public class Cell {
     public void setPayload(double payload) {
         this.payload = payload;
     }
+
+    public void incrementPayload(){ this.payload += 1; }
 }
