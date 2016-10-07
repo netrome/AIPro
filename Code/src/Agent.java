@@ -44,6 +44,10 @@ public class Agent {
         ypos = y;
         maze.discover(x, y);
     }
+
+    public void move(int[] pos){
+        move(pos[0], pos[1]);
+    }
     
     public int getX(){
     	return xpos;
