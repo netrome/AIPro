@@ -56,6 +56,42 @@ public class State {
     	*/
 		return retStates;
     }
+
+
+	/**
+	 * returns all possible other states reachable from the current state
+	 */
+	public List<State> findPossibleMoves(List<Integer> fixedAgents){
+		List<State> retStates = new ArrayList<State>();;
+		List<State> tempStates = new ArrayList<State>();
+		tempStates.add(this.clone());
+		for (int a = 0; a < agents.length; a++){
+
+			boolean skip = false;
+            for (int i : fixedAgents){
+				if (a == i){
+					skip = true;
+					break;
+				}
+			}
+			if (skip){
+				continue;
+			}
+
+			retStates = new ArrayList<State>();
+			for (State state : tempStates){
+				for (int[] pos: agents[a].getPossibleMoves()){
+					State newState = state.clone();
+					newState.agents[a].move(pos[0], pos[1]);
+					retStates.add(newState);
+				}
+			}
+			tempStates = retStates;
+		}
+		return retStates;
+	}
+
+
     /**
      * returns if the state is complete
      */

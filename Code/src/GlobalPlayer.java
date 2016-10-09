@@ -53,15 +53,15 @@ public class GlobalPlayer implements Player {
 
         public List<State> successors(State s){
 
-            List<Agent> agentsNotOnBorder = new ArrayList<>();
+            List<Integer> fixedAgents = new ArrayList<>();
 
-            for (Agent a : s.agents){
-                if (!agentOnBoarder(s, a)){
-                    agentsNotOnBorder.add(a);
+            for (int a = 0; a < s.agents.length; a++){
+                if (agentOnBoarder(s, s.agents[a])){
+                    fixedAgents.add(a);
                 }
             }
 
-            return s.findPossibleMoves(agentsNotOnBorder);
+            return s.findPossibleMoves(fixedAgents);
 
         }
 
