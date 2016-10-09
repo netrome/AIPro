@@ -13,7 +13,7 @@ public class AStar {
      * @param h: the heuristic
      * @return: The optimal path as a list of states (from start to goal). Returns empty list if no path was found
      */
-    public static List<State> search(State start, Successor s, Heuristic h){
+    public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth){
 
 
         // All visited states
@@ -37,8 +37,12 @@ public class AStar {
         // Cost to start is 0
         costFromStart.put(start.toString(), new Double(0));
 
-        while(!heap.isEmpty()){
+        // depth
+        Map<State, Integer> depth = new HashMap<>();
 
+        depth.put(start, 0);
+
+        while(!heap.isEmpty()){
             // Get state with lowest cost value
             State current = heap.poll();
             String currentString = current.toString();
@@ -47,12 +51,13 @@ public class AStar {
             visited.add(current.toString());
 
             // Check if goal
-            if (s.isGoal(current)){
+            if (s.isGoal(current) || depth.get(current) >= maxDpeth){
                 return reconstructPath(current, predecessor);
             }
 
             // Get next possible states
             List<State> nextPossibleStates = s.successors(current);
+
 
             for (State neighbour : nextPossibleStates){
 
@@ -64,11 +69,11 @@ public class AStar {
                 }
 
                 // Calculate cost from goal
-                double tentativeCostFromGoal = costFromStart.get(currentString) + h.distance(current, neighbour);
+                double tentativeCostFromStart = costFromStart.get(currentString) + h.distance(current, neighbour);
 
 
                 // If already seen ad more costly than before
-                if(costFromStart.containsKey(neighbourString) && tentativeCostFromGoal >= costFromStart.get(neighbourString)){
+                if(costFromStart.containsKey(neighbourString) && tentativeCostFromStart >= costFromStart.get(neighbourString)){
                     continue;
                 }
 
@@ -77,11 +82,14 @@ public class AStar {
                 // Current was the predecessor
                 predecessor.put(neighbour, current);
 
+                // Add to depth
+                depth.put(neighbour, depth.get(current) + 1);
+
                 // Store the cost from goal
-                costFromStart.put(neighbourString, tentativeCostFromGoal);
+                costFromStart.put(neighbourString, tentativeCostFromStart);
 
                 // Store total cost
-                cost.put(neighbour, tentativeCostFromGoal + h.costToGoal(neighbour));
+                cost.put(neighbour, tentativeCostFromStart + h.costToGoal(neighbour));
 
                 // Add to heap if not seen before
                 if (!heap.contains(neighbour)){
@@ -91,6 +99,7 @@ public class AStar {
             }
 
         }
+
 
         // If no path was found return empty list
         return new ArrayList<>();
