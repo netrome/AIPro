@@ -11,6 +11,14 @@ public class State {
     public State(Agent[] agents, Maze maze){
         this.agents = agents;
         this.maze = maze;
+
+		for (Agent a : agents){
+			maze.getCell(a.getX(), a.getY()).setFound(true);
+			for (int[] coord : maze.getNeighbours(a.getX(), a.getY())){
+				maze.getCell(coord[0], coord[1]).setFound(true);
+			}
+		}
+
     }
     
     /**
