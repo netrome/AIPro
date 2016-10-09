@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +9,9 @@ public class GlobalPlayer implements Player {
 
     private State goal;
 
+    private List<State> previousPath = null;
+
+    private int count = 0;
 
     public GlobalPlayer(){
 
@@ -15,18 +19,25 @@ public class GlobalPlayer implements Player {
 
     @Override
     public State play(State state) {
+        List<State> path;
 
-
-        List<State> path = AStar.search(state, new GlobalSuccessor(), new GlobalHeuristic());
+        // Search for new path if new cells were explored
+        if(previousPath == null || previousPath.size() == 1 ||
+                previousPath.get(0).maze.getExplored() != state.maze.getExplored()){
+            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(), Integer.MAX_VALUE);
+        }
+        // Otherwise use old path
+        else{
+            path = previousPath;
+            path.remove(0);
+        }
 
         if(path.size() == 0){
             System.err.println("No path!");
             return state;
         }
-        else if(path.size() == 1){
-            System.err.println("Reached goal!");
-            return state;
-        }
+
+        previousPath = path;
 
         return path.get(1);
     }
@@ -34,12 +45,50 @@ public class GlobalPlayer implements Player {
 
     private class GlobalSuccessor implements AStar.Successor{
 
+        private State start;
+
+        GlobalSuccessor(State start){
+            this.start = start;
+        }
+
         public List<State> successors(State s){
-            return s.findPossibleMoves();
+
+            List<Agent> agentsNotOnBorder = new ArrayList<>();
+
+            for (Agent a : s.agents){
+                if (!agentOnBoarder(s, a)){
+                    agentsNotOnBorder.add(a);
+                }
+            }
+
+            return s.findPossibleMoves(agentsNotOnBorder);
+
         }
 
         public boolean isGoal(State s){
-            return s.isEOG();
+
+            if (s.isEOG()){
+                return true;
+            }
+
+            for (Agent a : s.agents){
+                if (!agentOnBoarder(s, a)){
+                    return false;
+                }
+            }
+
+            return true;
+
+            //return s.isEOG();
+        }
+
+        private boolean agentOnBoarder(State s, Agent a){
+            for (int[] coord : s.maze.getNeighbours(a.getX(), a.getY())){
+                if (!start.maze.getCell(coord[0], coord[1]).isFound()){
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
@@ -52,8 +101,12 @@ public class GlobalPlayer implements Player {
 
 
         public double costToGoal(State s){
+
             return 0;
+            //return s.maze.getHeight() * s.maze.getWidth() - s.maze.getExplored();
+
         }
+
 
     }
 
