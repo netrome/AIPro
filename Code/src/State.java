@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * The state of the game. It contains the array of agents and the maze
@@ -67,5 +66,46 @@ public class State {
     	}
     	return new State(retAgents,retMaze);
     }
+
+    public String toString(){
+
+		Map<Cell, Integer> agentPositions = new HashMap<>();
+
+		for (Agent a : agents){
+			Cell c = maze.getCell(a.getX(), a.getY());
+			if(agentPositions.containsKey(c)){
+				agentPositions.put(c, agentPositions.get(c) + 1);
+			}else {
+				agentPositions.put(c, 1);
+			}
+		}
+
+		StringBuilder builder = new StringBuilder();
+
+		for (int x = 0; x < maze.getMaze().length; x++) {
+			for (int y = 0; y < maze.getMaze()[0].length; y++) {
+
+				Cell c = maze.getCell(x, y);
+
+				if(!c.isFound()){
+					builder.append("?");
+				}
+				else if(c.isWall()){
+					builder.append("#");
+				}
+				else if(agentPositions.containsKey(c)){
+					builder.append(agentPositions.get(c));
+				}
+				else{
+					builder.append(" ");
+				}
+
+				builder.append(" ");
+			}
+			builder.append("\n");
+		}
+
+		return builder.toString();
+	}
      
 }
