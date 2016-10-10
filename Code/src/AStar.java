@@ -129,6 +129,10 @@ public class AStar {
         public double costToGoal(State s);
     }
 
+    public interface Successor{
+        public List<State> successors(State s);
+        public boolean isGoal(State s);
+    }
 
     static private class CostComparator implements Comparator<State>{
 
@@ -143,12 +147,6 @@ public class AStar {
         }
 
     }
-
-    public interface Successor{
-        public List<State> successors(State s);
-        public boolean isGoal(State s);
-    }
-
 
 
 
