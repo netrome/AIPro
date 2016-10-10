@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * The state of the game. It contains the array of agents and the maze
@@ -12,6 +11,14 @@ public class State {
     public State(Agent[] agents, Maze maze){
         this.agents = agents;
         this.maze = maze;
+
+		for (Agent a : agents){
+			maze.getCell(a.getX(), a.getY()).setFound(true);
+			for (int[] coord : maze.getNeighbours(a.getX(), a.getY())){
+				maze.getCell(coord[0], coord[1]).setFound(true);
+			}
+		}
+
     }
     
     /**
@@ -49,6 +56,42 @@ public class State {
     	*/
 		return retStates;
     }
+
+
+	/**
+	 * returns all possible other states reachable from the current state
+	 */
+	public List<State> findPossibleMoves(List<Integer> fixedAgents){
+		List<State> retStates = new ArrayList<State>();;
+		List<State> tempStates = new ArrayList<State>();
+		tempStates.add(this.clone());
+		for (int a = 0; a < agents.length; a++){
+
+			boolean skip = false;
+            for (int i : fixedAgents){
+				if (a == i){
+					skip = true;
+					break;
+				}
+			}
+			if (skip){
+				continue;
+			}
+
+			retStates = new ArrayList<State>();
+			for (State state : tempStates){
+				for (int[] pos: agents[a].getPossibleMoves()){
+					State newState = state.clone();
+					newState.agents[a].move(pos[0], pos[1]);
+					retStates.add(newState);
+				}
+			}
+			tempStates = retStates;
+		}
+		return retStates;
+	}
+
+
     /**
      * returns if the state is complete
      */
@@ -67,5 +110,46 @@ public class State {
     	}
     	return new State(retAgents,retMaze);
     }
+
+    public String toString(){
+
+		Map<Cell, Integer> agentPositions = new HashMap<>();
+
+		for (Agent a : agents){
+			Cell c = maze.getCell(a.getX(), a.getY());
+			if(agentPositions.containsKey(c)){
+				agentPositions.put(c, agentPositions.get(c) + 1);
+			}else {
+				agentPositions.put(c, 1);
+			}
+		}
+
+		StringBuilder builder = new StringBuilder();
+
+		for (int x = 0; x < maze.getMaze().length; x++) {
+			for (int y = 0; y < maze.getMaze()[0].length; y++) {
+
+				Cell c = maze.getCell(x, y);
+
+				if(!c.isFound()){
+					builder.append("?");
+				}
+				else if(c.isWall()){
+					builder.append("#");
+				}
+				else if(agentPositions.containsKey(c)){
+					builder.append(agentPositions.get(c));
+				}
+				else{
+					builder.append(" ");
+				}
+
+				builder.append(" ");
+			}
+			builder.append("\n");
+		}
+
+		return builder.toString();
+	}
      
 }
