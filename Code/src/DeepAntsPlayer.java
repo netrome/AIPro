@@ -17,26 +17,67 @@ public class DeepAntsPlayer implements Player {
     @Override
     public State play(State gameState) {
         for (Agent agent : gameState.agents){
-
-            // Get moves
-            List<int []> moves = agent.getPossibleMoves();
-
-            // Get lowest feromone move
-            int [] bestmove = {agent.getX(), agent.getY()};
-            double minPayload = gameState.maze.getCell(bestmove).getPayload();
-            for (int [] move : moves){
-                double payload = gameState.maze.getCell(move).getPayload();
-                if (payload < minPayload){
-                    bestmove = move;
-                    minPayload = payload*1;
-                }
-            }
-
-            // Release feromone and move
-            gameState.maze.getCell(bestmove).incrementPayload();
-            agent.move(bestmove);
+            doBestMove(agent, gameState);
         }
 
         return gameState;
+    }
+
+    /**
+     * Moves the agent according to what is determined as the best move
+     * @param agent
+     * @return
+     */
+    private void doBestMove(Agent agent, State gameState){
+        int [] pos = {agent.getX(), agent.getY()};
+        int [] bestMove = pos.clone();
+        double val = Double.MAX_VALUE;
+        int depth = 5;
+
+        // Get next moves
+        List<int []> nextMoves = agent.getPossibleMoves();
+
+        // Find best move
+        double tempVal;
+        for ( int [] move: nextMoves){
+            tempVal = minDFSmove(agent, gameState, move, depth);
+            if (tempVal < val){
+                val = tempVal;
+                bestMove = move;
+            }
+        }
+
+
+        // Release feromone and move
+        gameState.maze.getCell(bestMove).incrementPayload();
+        agent.move(bestMove);
+    }
+
+    /**
+     * Returns the minimum sum of encountered feromones for a move in this direction.
+     */
+    private double minDFSmove(Agent agent, State gameState, int[] pos, int depth){
+        double val = Double.MAX_VALUE;
+        Cell cell = gameState.maze.getCell(pos);
+
+        // If depth is zero return the feromone level
+        if (depth == 0){
+            return cell.getPayload();
+        }
+
+        // Get next moves
+        List<int []> nextMoves = agent.getPossibleMoves(pos);
+
+        // Get lowest feromone move
+        double tempVal;
+        for (int [] move: nextMoves){
+            tempVal = minDFSmove(agent, gameState, move, depth - 1);
+            if (tempVal < val){
+                val = tempVal;
+            }
+        }
+
+        // Add feromone level and returm
+        return val + cell.getPayload();
     }
 }
