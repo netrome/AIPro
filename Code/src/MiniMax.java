@@ -38,8 +38,8 @@ public class MiniMax {
             }
             Arrays.sort(nextSortedStates);
         }
-        //Kommer vi vilja utöka detta till att ha flera spelare?
-        //dvs vi vill väll bara ha max?
+        //Kommer vi vilja utoka detta till att ha flera spelare?
+        //dvs vi vill vall bara ha max?
         if(player == ourMark || true){
             v = Integer.MIN_VALUE;
             for(IndexValue next:nextSortedStates){

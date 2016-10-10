@@ -36,6 +36,12 @@ public class GlobalPlayer implements Player {
             System.err.println("No path!");
             return state;
         }
+        // Found goal
+        else if(path.size() == 1){
+            return state;
+        }
+
+
 
         previousPath = path;
 
