@@ -10,7 +10,9 @@ public class AStar {
      * cost from n to the goal
      *
      * @param start: the start state
+     * @param s: successor function
      * @param h: the heuristic
+     * @param maxDpeth : the maximum depth
      * @return: The optimal path as a list of states (from start to goal). Returns empty list if no path was found
      */
     public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth){
