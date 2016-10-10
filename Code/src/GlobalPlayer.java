@@ -19,12 +19,21 @@ public class GlobalPlayer implements Player {
 
     @Override
     public State play(State state) {
+        Maze m = state.maze;
+
+        for (int x = 0; x < m.getWidth(); x++) {
+            for (int y = 0; y < m.getHeight(); y++) {
+                m.getCell(x, y).setPayload(distanceToUndiscoveredCell(m, x, y));
+            }
+        }
+
+
         List<State> path;
 
         // Search for new path if new cells were explored
         if(previousPath == null || previousPath.size() == 1 ||
                 previousPath.get(0).maze.getExplored() != state.maze.getExplored()){
-            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(), Integer.MAX_VALUE);
+            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(state), Integer.MAX_VALUE);
         }
         // Otherwise use old path
         else{
@@ -41,11 +50,34 @@ public class GlobalPlayer implements Player {
             return state;
         }
 
-
-
         previousPath = path;
 
         return path.get(1);
+    }
+
+    private double distanceToUndiscoveredCell(Maze maze, int xPos, int yPos){
+
+        double closest = Double.MAX_VALUE;
+
+        for (int x = 0; x < maze.getWidth(); x++){
+            for (int y = 0; y < maze.getHeight(); y++){
+
+                Cell c = maze.getCell(x, y);
+
+                if(!c.isFound()){
+
+                    double d = Math.pow(x - xPos, 2) + Math.pow(y - yPos, 2);
+
+                    if(d < closest){
+                        closest = d;
+                    }
+                }
+
+            }
+
+        }
+
+        return closest;
     }
 
 
@@ -62,7 +94,7 @@ public class GlobalPlayer implements Player {
             List<Integer> fixedAgents = new ArrayList<>();
 
             for (int a = 0; a < s.agents.length; a++){
-                if (agentOnBoarder(s, s.agents[a])){
+                if (agentOnBoarder(start.maze, s.agents[a])){
                     fixedAgents.add(a);
                 }
             }
@@ -78,7 +110,7 @@ public class GlobalPlayer implements Player {
             }
 
             for (Agent a : s.agents){
-                if (!agentOnBoarder(s, a)){
+                if (!agentOnBoarder(start.maze, a)){
                     return false;
                 }
             }
@@ -88,27 +120,50 @@ public class GlobalPlayer implements Player {
             //return s.isEOG();
         }
 
-        private boolean agentOnBoarder(State s, Agent a){
-            for (int[] coord : s.maze.getNeighbours(a.getX(), a.getY())){
-                if (!start.maze.getCell(coord[0], coord[1]).isFound()){
+        private boolean agentOnBoarder(Maze m, Agent a){
+
+            for (int[] coord: m.getNeighbours(a.getX(), a.getY())){
+
+                if(!m.getCell(coord[0], coord[1]).isFound()){
                     return true;
                 }
+
             }
+
             return false;
         }
 
     }
 
     private class GlobalHeuristic implements AStar.Heuristic{
+        private State start;
 
-        public double distance(State s1, State s2){
-            return 1;//1 + (s1.maze.getExplored() - s2.maze.getExplored());
+        GlobalHeuristic(State start){
+            this.start = start;
         }
 
 
+        public double distance(State s1, State s2){
+            return 10 + (s1.maze.getExplored() - s2.maze.getExplored());
+        }
+
         public double costToGoal(State s){
 
-            return 0;
+            double sum = 0;
+            for (Agent a : s.agents){
+                double d = distanceToUndiscoveredCell(start.maze, a.getX(), a.getY());
+                if(d==1){
+                    sum -= 100000;
+                }else{
+                    sum += d;
+                }
+                //sum += d;
+            }
+            return sum;
+
+
+            //return 0;
+
             /*
             List<Double> closest = new ArrayList<>();
 
