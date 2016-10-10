@@ -11,12 +11,13 @@ public class Main {
     public static void main(String[] args) {
         Maze maze = new Maze();
         maze.primsMaze(50, 50);
-        maze.easyfy(0.2);
+        maze.easyfy(1);
+        maze.discoverEdges();
         Player player = new MDFSPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
         
-        int numberOfAgents = 18;
+        int numberOfAgents = 5;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);

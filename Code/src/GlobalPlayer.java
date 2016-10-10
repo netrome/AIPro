@@ -102,13 +102,51 @@ public class GlobalPlayer implements Player {
     private class GlobalHeuristic implements AStar.Heuristic{
 
         public double distance(State s1, State s2){
-            return 1 + (s1.maze.getExplored() - s2.maze.getExplored());
+            return 1;//1 + (s1.maze.getExplored() - s2.maze.getExplored());
         }
 
 
         public double costToGoal(State s){
 
             return 0;
+            /*
+            List<Double> closest = new ArrayList<>();
+
+            for (int i = 0; i < s.agents.length; i++){
+                closest.add(Double.MAX_VALUE);
+            }
+
+
+            for (int x = 0; x < s.maze.getWidth(); x++){
+                for (int y = 0; y < s.maze.getHeight(); y++){
+
+                    Cell c = s.maze.getCell(x, y);
+
+                    if(!c.isFound()){
+
+                        for (int i = 0; i < closest.size(); i++){
+                            double d = Math.pow(x - s.agents[i].getX(), 2) + Math.pow(y - s.agents[i].getY(), 2);
+
+                            if(d < closest.get(i)){
+                                closest.set(i, d);
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+            double sum = 0;
+
+            for (Double d : closest){
+                sum += Math.pow(d, 3);
+            }
+
+            return sum;*/
             //return s.maze.getHeight() * s.maze.getWidth() - s.maze.getExplored();
 
         }

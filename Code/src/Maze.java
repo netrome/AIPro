@@ -68,7 +68,7 @@ public class Maze {
      // Vi fick bara diagonal rutorna n�r det var +=2.
         for(int i = -1; i <= 1; i++){
             for(int j = -1; j <= 1; j++){
-                if(x + i > 0 && x + i < getWidth() - 1 && y + j > 0 && y + j < getHeight() - 1){
+                if(x + i >= 0 && x + i < getWidth() && y + j >= 0 && y + j < getHeight()){
                 	if (i!=0 ^ j!=0 ){
                     neighbourList.add(new int[]{x + i, y + j});
                 	}
@@ -269,8 +269,28 @@ public class Maze {
             }
         }
     }
-	
-	/**
+
+    /**
+     * Makes the edges found
+     */
+
+    public void discoverEdges(){
+        for (int x = 0; x < getWidth(); x++){
+            mazeData[x][0].setFound(true);
+        }
+        for (int x = 0; x < getWidth(); x++){
+            mazeData[x][getHeight() - 1].setFound(true);
+        }
+
+        for (int y = 0; y < getHeight(); y++){
+            mazeData[0][y].setFound(true);
+        }
+        for (int y = 0; y < getHeight(); y++){
+            mazeData[getWidth() - 1][y].setFound(true);
+        }
+    }
+
+    /**
      * returns true if all the non wall cells have been explored
      */
 	public boolean isExplored(){

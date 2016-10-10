@@ -1,4 +1,5 @@
 import java.util.*;
+import java.awt.event.WindowEvent;
 
 public class AStar {
 
@@ -17,6 +18,7 @@ public class AStar {
      */
     public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth){
 
+//        MazeGui gui = new MazeGui(start.maze);
 
         // All visited states
         Set<String> visited = new HashSet<>();
@@ -49,11 +51,21 @@ public class AStar {
             State current = heap.poll();
             String currentString = current.toString();
 
+            //gui.updateAgentPos(current.agents);
+            //gui.changeMaze(current.maze);
+            //gui.repaint();
+            //try {
+            //    Thread.sleep(100);
+            //} catch(InterruptedException ex) {
+            //    Thread.currentThread().interrupt();
+            //}
+
             // Add to visited
             visited.add(current.toString());
 
             // Check if goal
             if (s.isGoal(current) || depth.get(current) >= maxDpeth){
+                //gui.setVisible(false);
                 return reconstructPath(current, predecessor);
             }
 
@@ -102,6 +114,7 @@ public class AStar {
 
         }
 
+//        gui.setVisible(false);
 
         // If no path was found return empty list
         return new ArrayList<>();

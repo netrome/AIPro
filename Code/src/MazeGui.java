@@ -63,6 +63,7 @@ public class MazeGui extends JFrame {
                 for (int y = 0; y<maze.getMaze()[0].length; y++){
 
                     g2.setPaint(Color.WHITE);
+
                     if (maze.getMaze()[x][y].isWall()){
                         g2.setPaint(Color.BLACK);
                     }
