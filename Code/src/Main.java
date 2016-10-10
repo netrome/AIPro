@@ -12,7 +12,7 @@ public class Main {
         Maze maze = new Maze();
         maze.primsMaze(50, 50);
         maze.easyfy(0.2);
-        Player player = new MDFSPlayer();
+        Player player = new AntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
         

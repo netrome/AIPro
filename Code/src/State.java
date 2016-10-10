@@ -25,11 +25,11 @@ public class State {
      * returns all possible other states reachable from the current state
      */
     public List<State> findPossibleMoves(){
-    	List<State> retStates = new ArrayList<State>();;
-    	List<State> tempStates = new ArrayList<State>();
+    	List<State> retStates = new ArrayList<>();;
+    	List<State> tempStates = new ArrayList<>();
     	tempStates.add(this.clone());
     	for (int a =0; a< agents.length; a++){
-    		retStates = new ArrayList<State>();
+    		retStates = new ArrayList<>();
     		//System.out.println("Size of temp state: "+tempStates.size());
     		//System.out.println("Size of moves: "+agents[a].getPossibleMoves().size());
     		for (State state : tempStates){
@@ -62,8 +62,8 @@ public class State {
 	 * returns all possible other states reachable from the current state
 	 */
 	public List<State> findPossibleMoves(List<Integer> fixedAgents){
-		List<State> retStates = new ArrayList<State>();;
-		List<State> tempStates = new ArrayList<State>();
+		List<State> retStates = new ArrayList<>();
+		List<State> tempStates = new ArrayList<>();
 		tempStates.add(this.clone());
 		for (int a = 0; a < agents.length; a++){
 
@@ -78,7 +78,7 @@ public class State {
 				continue;
 			}
 
-			retStates = new ArrayList<State>();
+			retStates = new ArrayList<>();
 			for (State state : tempStates){
 				for (int[] pos: agents[a].getPossibleMoves()){
 					State newState = state.clone();
