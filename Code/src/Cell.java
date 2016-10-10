@@ -75,4 +75,5 @@ public class Cell {
     }
 
     public void incrementPayload(){ this.payload += 1; }
+    public void incrementPayload(double x){ this.payload += x; }
 }

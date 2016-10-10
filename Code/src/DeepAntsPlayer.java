@@ -49,8 +49,14 @@ public class DeepAntsPlayer implements Player {
 
 
         // Release feromone and move
-        gameState.maze.getCell(bestMove).incrementPayload();
+        gameState.maze.getCell(bestMove).incrementPayload(10);
         agent.move(bestMove);
+
+        // Release feromone to neighbours too
+        nextMoves = agent.getPossibleMoves(bestMove);
+        for (int [] move : nextMoves){
+            gameState.maze.getCell(move).incrementPayload();
+        }
     }
 
     /**
