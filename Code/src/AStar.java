@@ -18,7 +18,7 @@ public class AStar {
      */
     public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth){
 
-//        MazeGui gui = new MazeGui(start.maze);
+        //MazeGui gui = new MazeGui(start.maze);
 
         // All visited states
         Set<String> visited = new HashSet<>();
@@ -54,11 +54,11 @@ public class AStar {
             //gui.updateAgentPos(current.agents);
             //gui.changeMaze(current.maze);
             //gui.repaint();
-            //try {
-            //    Thread.sleep(100);
-            //} catch(InterruptedException ex) {
-            //    Thread.currentThread().interrupt();
-            //}
+            /*try {
+                Thread.sleep(100);
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }*/
 
             // Add to visited
             visited.add(current.toString());
@@ -114,7 +114,7 @@ public class AStar {
 
         }
 
-//        gui.setVisible(false);
+       //gui.setVisible(false);
 
         // If no path was found return empty list
         return new ArrayList<>();
