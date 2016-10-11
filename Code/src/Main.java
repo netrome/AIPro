@@ -10,7 +10,7 @@ public class Main {
  */
     public static void main(String[] args) {
         Maze maze = new Maze();
-        maze.primsMaze(25, 25);
+        maze.primsMaze(125, 125);
         maze.easyfy(0.7);
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();

@@ -10,9 +10,14 @@ import java.util.List;
  * Edit-the ant releases the feromone onto the cell it is heading towards
  */
 public class DeepAntsPlayer implements Player {
+    private int depth = 5;
 
     public DeepAntsPlayer() {
 
+    }
+
+    public DeepAntsPlayer(int depth) {
+        this.depth = depth;
     }
 
     @Override
@@ -33,7 +38,6 @@ public class DeepAntsPlayer implements Player {
         int [] pos = {agent.getX(), agent.getY()};
         int [] bestMove = pos.clone();
         double val = Double.MAX_VALUE;
-        int depth = 5;
 
         // Get next moves
         List<int []> nextMoves = agent.getPossibleMoves();
@@ -96,6 +100,6 @@ public class DeepAntsPlayer implements Player {
 
     @Override
     public String toString() {
-        return "DeepAntsPlayer";
+        return "DeepAntsPlayer" + depth;
     }
 }
