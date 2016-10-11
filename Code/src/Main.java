@@ -10,8 +10,8 @@ public class Main {
  */
     public static void main(String[] args) {
         Maze maze = new Maze();
-        maze.primsMaze(142, 142);
-        maze.easyfy(0.3);
+        maze.primsMaze(25, 25);
+        maze.easyfy(0.7);
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
@@ -22,9 +22,7 @@ public class Main {
         State state = new State(agents,maze);
 
         MazeGui gui = new MazeGui(maze);
-        while(!maze.isExplored()){
-        	gui.updateAgentPos(agents);
-        	gui.repaint();
+        while(!state.maze.isExplored()){
         	state = player.play(state);
         	agents=state.agents;
         	gui.changeMaze(state.maze);
@@ -33,6 +31,8 @@ public class Main {
         	} catch(InterruptedException ex) {
         	    Thread.currentThread().interrupt();
         	}
+        	gui.updateAgentPos(agents);
+        	gui.repaint();
         }
         System.err.println("Pling!");
         //Cell cell = new Cell();
