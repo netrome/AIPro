@@ -25,14 +25,14 @@ public class Main {
 
         Maze maze = new Maze();
         maze.primsMaze(50, 50);
-        double easy = 1;
+        double easy = 0.5;
         maze.easyfy(easy);
         Player player = new GlobalPlayer();
         maze.discoverEdges();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 4;
+        int numberOfAgents = 3;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
@@ -44,11 +44,16 @@ public class Main {
         	state = player.play(state);
         	agents=state.agents;
         	gui.changeMaze(state.maze);
+<<<<<<< HEAD
         	try {
         	    Thread.sleep(0);
+=======
+        	/*try {
+        	    Thread.sleep(40);
+>>>>>>> 4282cb35483b701d8e07222d63e1da35180113e6
         	} catch(InterruptedException ex) {
         	    Thread.currentThread().interrupt();
-        	}
+        	}*/
         	gui.updateAgentPos(agents);
         	gui.repaint();
 
