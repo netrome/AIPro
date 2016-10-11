@@ -21,4 +21,9 @@ public class RandomPlayer implements Player {
 
         return gameState;
     }
+
+    @Override
+    public String toString() {
+        return "RandomPlayer";
+    }
 }

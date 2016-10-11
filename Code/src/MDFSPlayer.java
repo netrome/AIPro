@@ -58,4 +58,9 @@ public class MDFSPlayer implements Player {
 
         return gameState;
     }
+
+    @Override
+    public String toString() {
+        return "MDFSPlayer";
+    }
 }

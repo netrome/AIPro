@@ -206,7 +206,10 @@ public class GlobalPlayer implements Player {
 
         }
 
-
     }
 
+    @Override
+    public String toString() {
+        return "GlobalPlayer";
+    }
 }

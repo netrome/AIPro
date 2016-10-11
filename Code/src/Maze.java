@@ -13,9 +13,13 @@ public class Maze {
     // Wall probability
     private static double WALL_PROB = 0.7;
 
+    // To seed or not to seed
+    private Random random = new Random(42);
+
+
     /**
      * Constructor
-      */
+     */
 	public Maze(){
 	}
 	
@@ -150,7 +154,7 @@ public class Maze {
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
 
-				if (Math.random() > WALL_PROB){ // Cell is wall
+				if (random.nextDouble() > WALL_PROB){ // Cell is wall
 					newMazeData[x][y] = new Cell(true);
 				}
                 else{                           // Cell is empty
@@ -166,7 +170,7 @@ public class Maze {
      * generates a maze using prim's algorithm
      */
 	public void primsMaze(int width,int height){
-        
+
 		Cell[][] newMazeData = new Cell[width][height];
 
         // Initialize new maze data as walls
@@ -179,8 +183,8 @@ public class Maze {
         
 		LinkedList <int[]> wallList = new LinkedList<int[]>();
 
-		int x=(int) Math.round(1+Math.random()*(width-2));
-		int y=(int) Math.round(1+Math.random()*(height-2));
+		int x=(int) Math.round(1 + random.nextDouble() * (width - 2));
+		int y=(int) Math.round(1 + random.nextDouble() * (height - 2));
 
 		int xs = x;
 		int ys = y;
@@ -190,7 +194,7 @@ public class Maze {
 		wallList.add(new int[]{x-1, y});
 		wallList.add(new int[]{x, y+1});
 		wallList.add(new int[]{x, y-1});
-		Collections.shuffle(wallList);
+		//Collections.shuffle(wallList);
 
 		while (!wallList.isEmpty()){
 
@@ -223,16 +227,16 @@ public class Maze {
                         if (x > 1){
                             newMazeData[x-1][y] = new Cell(false);
                             if(newMazeData[x-2][y].isWall()){
-                                wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x-2, y});
+                                wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x-2, y});
                             }
                         }
 
                         if(newMazeData[x-1][y+1].isWall()){
-                            wallList.add((int) Math.round(wallList.size()*Math.random()), new int[]{x-1, y+1});
+                            wallList.add((int) Math.round(wallList.size()*random.nextDouble()), new int[]{x-1, y+1});
                         }
 
                         if(newMazeData[x-1][y-1].isWall()){
-                            wallList.add((int) Math.round(wallList.size()*Math.random()), new int[]{x-1, y-1});
+                            wallList.add((int) Math.round(wallList.size()*random.nextDouble()), new int[]{x-1, y-1});
                         }
                     }
 
@@ -241,16 +245,16 @@ public class Maze {
                         if (x < width - 2){
                             newMazeData[x+1][y] = new Cell(false);
                             if(newMazeData[x+2][y].isWall()){
-                                wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x+2, y});
+                                wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x+2, y});
                             }
                         }
 
                         if(newMazeData[x+1][y+1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x+1, y+1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x+1, y+1});
                         }
 
                         if(newMazeData[x+1][y-1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x+1, y-1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x+1, y-1});
                         }
                     }
                     if (!newMazeData[x][y+1].isWall()){
@@ -258,16 +262,16 @@ public class Maze {
                         if (y > 1){
                             newMazeData[x][y-1] = new Cell(false);
                             if(newMazeData[x][y-2].isWall()){
-                                wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x, y-2});
+                                wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x, y-2});
                             }
                         }
 
                         if(newMazeData[x+1][y-1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x+1, y-1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x+1, y-1});
                         }
 
                         if(newMazeData[x-1][y-1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x-1, y-1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x-1, y-1});
                         }
 
                     }
@@ -277,16 +281,16 @@ public class Maze {
                         if (y < height - 2){
                             newMazeData[x][y+1] = new Cell(false);
                             if(newMazeData[x][y+2].isWall()){
-                                wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x, y+2});
+                                wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x, y+2});
                             }
                         }
 
                         if(newMazeData[x+1][y+1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x+1, y+1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x+1, y+1});
                         }
 
                         if(newMazeData[x-1][y+1].isWall()){
-                            wallList.add((int) Math.round(wallList.size() * Math.random()), new int[]{x-1, y+1});
+                            wallList.add((int) Math.round(wallList.size() * random.nextDouble()), new int[]{x-1, y+1});
                         }
                     }
                 }
@@ -304,7 +308,7 @@ public class Maze {
 		for (int x = 1; x < getWidth()-1; x++){
 			for (int y = 1; y < getHeight()-1; y++){
 				if (getCell(x, y).isWall()){
-					if(Math.random() > chance){
+					if(random.nextDouble() > chance){
 					    // Check that this is not unavailible
                         if (getCell(x-1, y).isWall() && getCell(x+1, y).isWall()
                                 && getCell(x, y-1).isWall() && getCell(x, y+1).isWall()){
@@ -373,7 +377,7 @@ public class Maze {
 					freePos.add(new int[]{x,y});
 				}
 			}}
-		return freePos.get((int)(Math.random()*freePos.size()));
+		return freePos.get((int)(random.nextDouble()*freePos.size()));
 	}
 
 	public static void main(String[] args){
