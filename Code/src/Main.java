@@ -10,13 +10,13 @@ public class Main {
  */
     public static void main(String[] args) {
         Maze maze = new Maze();
-        maze.primsMaze(50, 50);
-        maze.easyfy(0);
-        Player player = new DeepAntsPlayer();
+        maze.primsMaze(25, 25);
+        maze.easyfy(0.7);
+        Player player = new GlobalPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 1;
+        int numberOfAgents = 2;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
@@ -34,6 +34,7 @@ public class Main {
         	    Thread.currentThread().interrupt();
         	}
         }
+        System.err.println("Pling!");
         //Cell cell = new Cell();
     }
 }

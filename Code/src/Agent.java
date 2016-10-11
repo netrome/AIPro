@@ -27,29 +27,9 @@ public class Agent {
      * Get the possible moves for this agent
      */
     public List<int[]> getPossibleMoves(){
-        return getPossibleMoves(xpos, ypos);
+        return maze.getPossibleMoves(xpos, ypos);
     }
 
-    public List<int[]> getPossibleMoves(int[] pos){
-        return getPossibleMoves(pos[0], pos[1]);
-    }
-
-    /**
-     * Get the possible moves for this agent if it were somewhere else
-     */
-    public List<int[]> getPossibleMoves(int xpos, int ypos){
-        List<int []> neighbours = maze.getNeighbours(xpos, ypos);
-        List<int []> moves = new ArrayList<>();
-
-        for (int[] cord : neighbours){
-            Cell cell = maze.getCell(cord[0], cord[1]);
-            if (!cell.isWall()){
-                moves.add(cord);
-            }
-        }
-
-        return moves;
-    }
 
     /**
      * Moves the agent and discovers new cell.

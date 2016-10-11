@@ -53,7 +53,7 @@ public class DeepAntsPlayer implements Player {
         agent.move(bestMove);
 
         // Release feromone to neighbours too
-        nextMoves = agent.getPossibleMoves(bestMove);
+        nextMoves = gameState.maze.getPossibleMoves(bestMove);
         for (int [] move : nextMoves){
             gameState.maze.getCell(move).incrementPayload();
         }
@@ -72,7 +72,7 @@ public class DeepAntsPlayer implements Player {
         }
 
         // Get next moves
-        List<int []> nextMoves = agent.getPossibleMoves(pos);
+        List<int []> nextMoves = gameState.maze.getPossibleMoves(pos);
 
         // Get lowest feromone move
         double tempVal;

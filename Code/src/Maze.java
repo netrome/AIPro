@@ -49,7 +49,11 @@ public class Maze {
     }
 
     public Cell getCell(int x, int y){
-        return mazeData[x][y];
+        try {
+            return mazeData[x][y];
+        }catch (ArrayIndexOutOfBoundsException aiobe){
+            return new Cell(true, true, 0);
+        }
     }
     public Cell getCell(int[] pos){ return getCell(pos[0], pos[1]); }
 	public Cell[][] getMaze() {
@@ -78,7 +82,33 @@ public class Maze {
 
         return neighbourList;
     }
-    
+
+
+    /**
+     * Get possible moves from a position
+     * @param pos
+     * @return
+     */
+    public List<int[]> getPossibleMoves(int[] pos){
+        return getPossibleMoves(pos[0], pos[1]);
+    }
+
+    /**
+     * Get the possible moves for this agent if it were somewhere else
+     */
+    public List<int[]> getPossibleMoves(int xpos, int ypos){
+        List<int []> neighbours = getNeighbours(xpos, ypos);
+        List<int []> moves = new ArrayList<>();
+
+        for (int[] cord : neighbours){
+            Cell cell = getCell(cord[0], cord[1]);
+            if (!cell.isWall() || !cell.isFound()){
+                moves.add(cord);
+            }
+        }
+
+        return moves;
+    }
 
     /**
      * Called when an agent is moved to a cell.
@@ -91,7 +121,19 @@ public class Maze {
             Cell cell = getCell(cord[0], cord[1]);
             cell.setFound(true);
         }
+    }
 
+    /**
+     * Infer information about unobtainable cells. Mark them as found.
+     */
+    public void inferCells(){
+        for (int x = 0; x < getWidth(); x++){
+            for (int y = 0; y < getHeight(); y++){
+                if (getPossibleMoves(x, y).isEmpty()){
+                    getCell(x, y).setFound(true);
+                }
+            }
+        }
     }
 
     /**
@@ -261,8 +303,13 @@ public class Maze {
 	public void easyfy(double chance){
 		for (int x = 1; x < getWidth()-1; x++){
 			for (int y = 1; y < getHeight()-1; y++){
-				if (mazeData[x][y].isWall()){
+				if (getCell(x, y).isWall()){
 					if(Math.random() > chance){
+					    // Check that this is not unavailible
+                        if (getCell(x-1, y).isWall() && getCell(x+1, y).isWall()
+                                && getCell(x, y-1).isWall() && getCell(x, y+1).isWall()){
+                            continue;
+                        }
 						mazeData[x][y] = new Cell(false);
                     }
                 }

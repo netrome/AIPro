@@ -19,6 +19,7 @@ public class GlobalPlayer implements Player {
     @Override
     public State play(State state) {
         Maze m = state.maze;
+        m.inferCells(); // Make sure we don't get stuck
 
         for (int x = 0; x < m.getWidth(); x++) {
             for (int y = 0; y < m.getHeight(); y++) {

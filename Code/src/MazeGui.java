@@ -68,16 +68,16 @@ public class MazeGui extends JFrame {
                         g2.setPaint(Color.DARK_GRAY);
                     }
                     else if (maze.getMaze()[x][y].isWall()){
-                        g2.setPaint(Color.GRAY);
+                        g2.setPaint(Color.BLACK);
                     }
                     else if (maze.getCell(x,y).getPayload() == -1){
                         g2.setPaint(Color.gray);
                     }
                     else if (maze.getCell(x,y).getPayload() > 0){
                         int blue = (int)Math.round(maze.getCell(x,y).getPayload());
-                        blue = 10+10*blue;
-                        if(blue > 255 ) blue = 255;
-                        g2.setPaint(new Color(0,0,blue));
+                        blue = 255-10*blue;
+                        if(blue < 0 ) blue = 0;
+                        g2.setPaint(new Color(blue, blue, 255));
                     }
 
                     g2.fill(new Rectangle2D.Double(x*width, y*width,
