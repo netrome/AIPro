@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 /**
- *
+ * Player uses an A* search for multiple agents
  */
 public class GlobalPlayer implements Player {
 
@@ -16,6 +16,13 @@ public class GlobalPlayer implements Player {
     private MazeGui gui = null;
     private MazeGui pathGui = null;
 
+    /**
+     *
+     * @param showPath      -   gui that shows path
+     * @param showSearch    -   gui that shows search
+     * @param width         -   width of gui window
+     * @param height        -   height of gui window
+     */
     public GlobalPlayer(boolean showPath, boolean showSearch, int width, int height){
         Maze m;
         if (showPath) {
