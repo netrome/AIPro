@@ -16,6 +16,11 @@ public class GlobalPlayer implements Player {
     private MazeGui gui = null;
     private MazeGui pathGui = null;
 
+
+    public GlobalPlayer(){
+
+    }
+
     /**
      *
      * @param showPath      -   gui that shows path
