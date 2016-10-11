@@ -18,15 +18,7 @@ public class GlobalPlayer implements Player {
 
     @Override
     public State play(State state) {
-        Maze m = state.maze;
-        m.inferCells(); // Make sure we don't get stuck
-
-        for (int x = 0; x < m.getWidth(); x++) {
-            for (int y = 0; y < m.getHeight(); y++) {
-                m.getCell(x, y).setPayload(distanceToUndiscoveredCell(m, x, y));
-            }
-        }
-
+        state.maze.inferCells(); // Make sure we don't get stuck
 
         List<State> path;
 
@@ -41,18 +33,29 @@ public class GlobalPlayer implements Player {
             path.remove(0);
         }
 
-        if(path.size() == 0){
-            System.err.println("No path!");
+        // If there is no path or agents at goal
+        if(path.size() == 0 || path.size() == 1){
+            paintMaze(state.maze);
             return state;
         }
-        // Found goal
-        else if(path.size() == 1){
-            return state;
-        }
+
 
         previousPath = path;
+        paintMaze(path.get(1).maze);
 
         return path.get(1);
+    }
+
+    private void paintMaze(Maze m){
+        for (int x = 0; x < m.getWidth(); x++) {
+            for (int y = 0; y < m.getHeight(); y++) {
+                double d =distanceToUndiscoveredCell(m, x, y);
+                if(d > m.getHeight() * m.getWidth()){
+                    d = m.getHeight() * m.getWidth();
+                }
+                m.getCell(x, y).setPayload(d);
+            }
+        }
     }
 
     private double distanceToUndiscoveredCell(Maze maze, int xPos, int yPos){
@@ -105,7 +108,7 @@ public class GlobalPlayer implements Player {
 
         public boolean isGoal(State s){
 
-            if (s.isEOG()){
+            if (s.maze.isExplored()){
                 return true;
             }
 
