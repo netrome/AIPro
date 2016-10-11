@@ -45,14 +45,10 @@ public class GlobalPlayer implements Player {
 
         List<State> path;
 
-        if (gui != null) {
-            paintMaze(state.maze);
-        }
-
         // Search for new path if new cells were explored
         if(previousPath == null || previousPath.size() == 1 ||
                 previousPath.get(0).maze.getExplored() != state.maze.getExplored()){
-            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(state), 20, gui);
+            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(state), Integer.MAX_VALUE, gui);
         }
         // Otherwise use old path
         else{
@@ -75,6 +71,10 @@ public class GlobalPlayer implements Player {
             pathGui.updateAgentPos(pathState.agents);
             pathGui.changeMaze(pathState.maze);
             pathGui.repaint();
+        }
+
+        if (gui != null) {
+            paintMaze(path.get(1).maze);
         }
 
         return path.get(1);
@@ -152,7 +152,10 @@ public class GlobalPlayer implements Player {
 
         for (Agent oa : otherAgents){
             if(oa != a) {
-                d += Math.pow(a.getX() - oa.getX(), 2) + Math.pow(a.getY() - oa.getY(), 2);
+                double td = Math.pow(a.getX() - oa.getX(), 2) + Math.pow(a.getY() - oa.getY(), 2);
+                if (td < 10 * 10){
+                    d += td;
+                }
             }
         }
         return d;
@@ -223,9 +226,9 @@ public class GlobalPlayer implements Player {
             double moveCost = 10;
             double explored = (s1.maze.getExplored() - s2.maze.getExplored());
             double dAgents = (distanceBetweenAgents(s1) - distanceBetweenAgents(s2));
-            dAgents /= (Math.pow(s1.maze.getHeight(), 2) + Math.pow(s1.maze.getWidth(), 2));
+            //dAgents /= (Math.pow(s1.maze.getHeight(), 2) + Math.pow(s1.maze.getWidth(), 2));
 
-            return moveCost + explored;
+            return moveCost + explored; //+ 0.1 * dAgents;
         }
 
         public double costToGoal(State s){
