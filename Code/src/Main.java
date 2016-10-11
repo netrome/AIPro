@@ -28,6 +28,7 @@ public class Main {
         double easy = 0.7;
         maze.easyfy(easy);
         Player player = new GlobalPlayer();
+        maze.discoverEdges();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
