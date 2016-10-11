@@ -27,6 +27,7 @@ public class Main {
         maze.primsMaze(25, 25);
         double easy = 0.7;
         maze.easyfy(easy);
+        maze.discoverEdges();
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
