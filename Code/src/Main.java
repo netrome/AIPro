@@ -1,3 +1,8 @@
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
 /**
  * Main class that runs the game. For now only for simple testing
  *
@@ -9,20 +14,30 @@ public class Main {
  * and runs a game with a gui
  */
     public static void main(String[] args) {
+        /*
+        Variables for keeping track of performance
+         */
+        long count = 0;
+        long start = System.nanoTime();
+        StringBuilder out = new StringBuilder();
+
         Maze maze = new Maze();
-        maze.primsMaze(125, 125);
-        maze.easyfy(0.7);
+        maze.primsMaze(25, 25);
+        double easy = 0.7;
+        maze.easyfy(easy);
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 10;
+        int numberOfAgents = 2;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
-
+        
         MazeGui gui = new MazeGui(maze);
-        while(!state.maze.isExplored()){
+        while(!maze.isExplored()){
+        	gui.updateAgentPos(agents);
+        	gui.repaint();
         	state = player.play(state);
         	agents=state.agents;
         	gui.changeMaze(state.maze);
@@ -33,7 +48,33 @@ public class Main {
         	}
         	gui.updateAgentPos(agents);
         	gui.repaint();
+
+            /*
+             Code that saves the preformace data to a buffer
+              */
+            count++;
+            out.append(count+","+(System.nanoTime()-start)+","+(state.maze
+                    .getExplored()/(state.maze.getHeight()*state.maze
+                    .getWidth())));
+
         }
+        /*
+        Write the performance data to file
+         */
+        try {
+            System.err.println(System.getProperty("user.dir"));
+            // file names as follows: A-Algorithm_N-#agents_S-WxH_E-easy.csv
+            String name = "A-"+player.toString()
+                    +"_N-"+numberOfAgents+"_S-"+maze.getWidth()+"x"+maze
+                    .getHeight()+"_E-"+easy+".csv";
+            Writer writer = new BufferedWriter(new OutputStreamWriter(new
+                    FileOutputStream("results/"+name)));
+            writer.write(out.toString());
+        }catch (Exception e){
+            System.err.println("we fucked up!");
+        }
+
+
         System.err.println("Pling!");
         //Cell cell = new Cell();
     }
