@@ -9,10 +9,12 @@ import java.io.Writer;
  * Created by marten on 2016-10-05.
  */
 public class Main {
-/**
- * Sets up a maze, a certain number of agents and a player
- * and runs a game with a gui
- */
+    private static boolean print = true;
+
+    /**
+     * Sets up a maze, a certain number of agents and a player
+     * and runs a game with a gui
+     */
     public static void main(String[] args) {
         /*
         Variables for keeping track of performance
@@ -25,6 +27,7 @@ public class Main {
         maze.primsMaze(100, 100);
         double easy = 1;
         maze.easyfy(easy);
+        maze.discoverEdges();
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
@@ -53,27 +56,32 @@ public class Main {
              Code that saves the preformace data to a buffer
               */
             count++;
-            out.append(count+","+(System.nanoTime()-start)+","+(state.maze
-                    .getExplored()/(state.maze.getHeight()*state.maze
-                    .getWidth())));
+            out.append(count+", "+(System.nanoTime()-start)+", "+(state.maze
+                    .getExplored()*1.0/(state.maze.getHeight()*state.maze
+                    .getWidth())) + "\n");
 
         }
         /*
         Write the performance data to file
          */
-        try {
-            System.err.println(System.getProperty("user.dir"));
-            // file names as follows: A-Algorithm_N-#agents_S-WxH_E-easy.csv
-            String name = "A-"+player.toString()
-                    +"_N-"+numberOfAgents+"_S-"+maze.getWidth()+"x"+maze
-                    .getHeight()+"_E-"+easy+".csv";
-            Writer writer = new BufferedWriter(new OutputStreamWriter(new
-                    FileOutputStream("results/"+name)));
-            writer.write(out.toString());
-        }catch (Exception e){
-            System.err.println("we fucked up!");
-        }
+        if (print) {
+            System.out.println(out);
+            try {
+                System.err.println(System.getProperty("user.dir"));
+                // file names as follows: A-Algorithm_N-#agents_S-WxH_E-easy.csv
+                String name = "A-" + player.toString()
+                        + "_N-" + numberOfAgents + "_S-" + maze.getWidth() + "x" + maze
+                        .getHeight() + "_E-" + easy + ".csv";
+                Writer writer = new BufferedWriter(new OutputStreamWriter(new
+                        FileOutputStream("results/" + name)));
+                writer.write(out.toString());
 
+                writer.flush();
+                writer.close();
+            } catch (Exception e) {
+                System.err.println("we fucked up!");
+            }
+        }
 
         System.err.println("Pling!");
         //Cell cell = new Cell();
