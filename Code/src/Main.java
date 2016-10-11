@@ -27,8 +27,8 @@ public class Main {
         maze.primsMaze(100, 100);
         double easy = 1;
         maze.easyfy(easy);
+        Player player = new AntsPlayer();
         maze.discoverEdges();
-        Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
@@ -38,7 +38,7 @@ public class Main {
         State state = new State(agents,maze);
         
         MazeGui gui = new MazeGui(maze);
-        while(!maze.isExplored()){
+        while(!state.maze.isExplored()){
         	gui.updateAgentPos(agents);
         	gui.repaint();
         	state = player.play(state);
