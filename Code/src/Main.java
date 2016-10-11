@@ -24,15 +24,15 @@ public class Main {
         StringBuilder out = new StringBuilder();
 
         Maze maze = new Maze();
-        maze.primsMaze(100, 100);
+        maze.primsMaze(50, 50);
         double easy = 1;
         maze.easyfy(easy);
-        Player player = new AntsPlayer();
+        Player player = new GlobalPlayer();
         maze.discoverEdges();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 10;
+        int numberOfAgents = 4;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
@@ -45,7 +45,7 @@ public class Main {
         	agents=state.agents;
         	gui.changeMaze(state.maze);
         	try {
-        	    Thread.sleep(40);
+        	    Thread.sleep(0);
         	} catch(InterruptedException ex) {
         	    Thread.currentThread().interrupt();
         	}
@@ -57,8 +57,7 @@ public class Main {
               */
             count++;
             out.append(count+", "+(System.nanoTime()-start)+", "+(state.maze
-                    .getExplored()*1.0/(state.maze.getHeight()*state.maze
-                    .getWidth())) + "\n");
+            		.getExploredPercent()) + "\n");
 
         }
         /*
