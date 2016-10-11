@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,9 +10,14 @@ import java.util.List;
  * Edit-the ant releases the feromone onto the cell it is heading towards
  */
 public class DeepAntsPlayer implements Player {
+    private int depth = 5;
 
     public DeepAntsPlayer() {
 
+    }
+
+    public DeepAntsPlayer(int depth) {
+        this.depth = depth;
     }
 
     @Override
@@ -32,10 +38,12 @@ public class DeepAntsPlayer implements Player {
         int [] pos = {agent.getX(), agent.getY()};
         int [] bestMove = pos.clone();
         double val = Double.MAX_VALUE;
-        int depth = 5;
 
         // Get next moves
         List<int []> nextMoves = agent.getPossibleMoves();
+
+        // Non deterministic
+        Collections.shuffle(nextMoves);
 
         // Find best move
         double tempVal;
@@ -74,6 +82,9 @@ public class DeepAntsPlayer implements Player {
         // Get next moves
         List<int []> nextMoves = gameState.maze.getPossibleMoves(pos);
 
+        // Non deterministic
+        Collections.shuffle(nextMoves);
+
         // Get lowest feromone move
         double tempVal;
         for (int [] move: nextMoves){
@@ -85,5 +96,10 @@ public class DeepAntsPlayer implements Player {
 
         // Add feromone level and returm
         return val + cell.getPayload();
+    }
+
+    @Override
+    public String toString() {
+        return "DeepAntsPlayer" + depth;
     }
 }
