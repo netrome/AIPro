@@ -22,14 +22,14 @@ public class Main {
         StringBuilder out = new StringBuilder();
 
         Maze maze = new Maze();
-        maze.primsMaze(25, 25);
-        double easy = 0.7;
+        maze.primsMaze(100, 100);
+        double easy = 1;
         maze.easyfy(easy);
         Player player = new DeepAntsPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 2;
+        int numberOfAgents = 10;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
