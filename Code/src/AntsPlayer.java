@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ public class AntsPlayer implements Player {
 
             // Get moves
             List<int []> moves = agent.getPossibleMoves();
+
+            // Non deterministic ants
+            Collections.shuffle(moves);
 
             // Get lowest feromone move
             int [] bestmove = {agent.getX(), agent.getY()};
