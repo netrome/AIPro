@@ -9,7 +9,7 @@ import java.io.Writer;
  * Created by marten on 2016-10-05.
  */
 public class Main {
-    private static boolean print = true;
+    private static boolean print = false;
 
     /**
      * Sets up a maze, a certain number of agents and a player
@@ -27,11 +27,11 @@ public class Main {
         maze.primsMaze(25, 25);
         double easy = 0.7;
         maze.easyfy(easy);
-        Player player = new DeepAntsPlayer();
+        Player player = new GlobalPlayer();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-        int numberOfAgents = 20;
+        int numberOfAgents = 3;
         Agent[] agents = new Agent[numberOfAgents];
         for (int i=0;i<numberOfAgents;i++)agents[i]=new Agent(startPos[0],startPos[1],maze);
         State state = new State(agents,maze);
