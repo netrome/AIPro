@@ -69,3 +69,7 @@ local.properties
 *.fdb_latexmk
 *.el
 *auto/*
+
+
+# MACOSX
+*.DS_STORE
