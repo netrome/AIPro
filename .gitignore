@@ -69,3 +69,5 @@ local.properties
 *.fdb_latexmk
 *.el
 *auto/*
+*.blg
+*.bbl
