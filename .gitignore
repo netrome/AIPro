@@ -61,3 +61,11 @@ local.properties
 
 # Java
 *.class
+
+
+# Some other crap
+*.gz
+*.fls
+*.fdb_latexmk
+*.el
+*auto/*
