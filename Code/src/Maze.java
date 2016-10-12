@@ -22,6 +22,10 @@ public class Maze {
      */
 	public Maze(){
 	}
+
+    public Maze(int seed){
+        random = new Random(seed);
+    }
 	
 	public Maze(Cell[][] mazeData){
 		this.setMaze(mazeData);

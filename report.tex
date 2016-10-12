@@ -4,20 +4,71 @@
 \usepackage[parfill]{parskip}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
 
-\title{ Multi agent maze exploration: A review of aMAZEing algorithms }
-\author{ Mårten Nilsson, Patrik Barkman, Axel Demborg, Elon Såndberg }
+\title{Team 2: Multi agent maze exploration}
+\author{ Mårten Nilsson \texttt{marten3@kth.se}, Patrik Barkman
+  \texttt{barkm@kth.se} \\ Axel Demborg \texttt{demborg@kth.se}, Elon Såndberg
+  \texttt{elons@kth.se}}
 \date{October 2016}
 
 \begin{document}
 
 \maketitle
 
+\section{Abstract}
 
 \section{Introduction}
+%Classical planning... perfect information... exploration necessary... multiagent coordination...
+
+Generating maps of certain areas of importance has long been a question of great interest in a
+wide range of fields. Historically the explorers of the areas have been humans.
+Though using humans for exploring certain areas is intractable. Both due to
+limitations of human capabilities and risks associated with the exploration
+task. For an example, during search and rescue operations in hostile
+environments such as a building on fire one is not inclined to put more human
+lives at risk than necessary. With the recent advances in AI and robotics,
+another opportunity for these situations arises. The exploration could be
+performed by specialized robots. This does not put any unneccessary human lives
+at risk and could possibly lead to a more efficient operation.
+
+One of the greatest challenges for automated multi agent exploration is how to
+coordinate the agents in the unknown area. Depending on the limitations of the
+robots in the terrain, different methods of addressing the problem arises. In
+this report the focus is on some of the established algorithms in the field as
+well as proposing some modifications. This study seeks to obtain data to provide
+new knowledge of how these algorithms perform in a maze like environment where
+conventional heuristics not always result in decent performance.
+
+\section{Related work}
+A considerable amount of literature has been published on multi agent
+coordination motivated by search and rescue operations. Ferranit, Trigoni and
+Levene proposed the \textit{Brick\&Mortar} algorithm in which the agents operate
+on local information and communicate indirectly with each other by leaving
+information tags at visited points \cite{ferranti2007brick}. Their algorithm is
+inspired by the \textit{Ants} algorithm proposed by Koenig and Liu \cite{koenig2001terrain} and the
+\textit{Multiple depth first search (MDFS)} algorithm which first occured in \cite{tarry1895probleme}. 
+
+Traditionaly, the problem of multi agent exploration have been seen as a
+distinct part of serarch and rescue operations. However, Becker, Blatt and
+Szczerbicka proposed the flooding algorithm \cite{becker2013multi} in which the
+exploration and rescue parts of the operation work in parallell. In their
+algorithm the exploration agents act on local information and frequently report
+back to a base of operations.
 
 \section{Problem formulation}
 
+Prims maze...
+
 \section{Method(s)}
+
+\subsection{Ants}
+
+\subsection{Multiple Depth First Search (MDFS)}
+
+\subsection{Deep Ants}
+
+\subsection{Centralized search}
+
+\section{Case study}
 
 \section{Performance measures}
 \begin{itemize}
@@ -29,9 +80,13 @@
 \section{Results}
 
 \section{Discussion}
+Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
 
 \section{Conclusions}
 
+
+\bibliographystyle{unsrt}
+\bibliography{references}
 
 
 \end{document}

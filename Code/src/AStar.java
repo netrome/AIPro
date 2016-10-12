@@ -4,7 +4,6 @@ import java.awt.event.WindowEvent;
 public class AStar {
 
 
-   static private boolean showGui = false;
 
     /**
      * A* search based on a heuristic
@@ -18,12 +17,7 @@ public class AStar {
      * @param maxDpeth : the maximum depth
      * @return: The optimal path as a list of states (from start to goal). Returns empty list if no path was found
      */
-    public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth){
-
-        MazeGui gui = null;
-        if (showGui) {
-            gui = new MazeGui(start.maze);
-        }
+    public static List<State> search(State start, Successor s, Heuristic h, int maxDpeth, MazeGui gui){
 
         // All visited states
         Set<String> visited = new HashSet<>();
@@ -56,15 +50,15 @@ public class AStar {
             State current = heap.poll();
             String currentString = current.toString();
 
-            if (showGui) {
+            if (gui != null) {
                 gui.updateAgentPos(current.agents);
                 gui.changeMaze(current.maze);
                 gui.repaint();
-            /*try {
-                Thread.sleep(100);
-            } catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }*/
+                //try {
+                //    Thread.sleep(100);
+                //} catch(InterruptedException ex) {
+                //    Thread.currentThread().interrupt();
+                //}
             }
 
             // Add to visited
@@ -72,9 +66,6 @@ public class AStar {
 
             // Check if goal
             if (s.isGoal(current) || depth.get(current) >= maxDpeth){
-                if(showGui) {
-                    gui.setVisible(false);
-                }
                 return reconstructPath(current, predecessor);
             }
 
@@ -121,10 +112,6 @@ public class AStar {
 
             }
 
-        }
-
-        if (showGui) {
-            gui.setVisible(false);
         }
 
         // If no path was found return empty list
