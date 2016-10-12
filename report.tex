@@ -4,6 +4,8 @@
 \usepackage[parfill]{parskip}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
 
+\usepackage{amsmath}
+
 \title{Team 2: Multi agent maze exploration}
 \author{ Mårten Nilsson \texttt{marten3@kth.se}, Patrik Barkman
   \texttt{barkm@kth.se} \\ Axel Demborg \texttt{demborg@kth.se}, Elon Såndberg
@@ -77,6 +79,38 @@ be the most effective, but also the most computationally demanding. This is
 mainly due to the dimension of the search space grows exponentially with the
 number of agents.
 
+The method is based on the $A^*$ search algorithm. It is an informed search
+based on the cost function
+%
+$$f(x) = g(x) + h(x)$$
+%
+where $g(x)$ is the cost of traversing from the start to the state $x$ and
+$h(x)$ is an heuristic that estimates the cost from $x$ to the goal. In this
+case the start state consists of any possible placement of the agents in the
+enviroment and in genernal the environment has only partly been explored by the
+agents. The goal state is defined such that all the agents should be positioned
+on a border to an undiscovered area of the environment. Since the agents will
+have to travel different distance to reach such a border, as soon as one agent 
+has found its way to the border its position is no longer varied during the 
+remaining search.
+
+The function $g(x)$ is defined as
+%
+$$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
+\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at $x$} \\ - \\ \text{
+explored area at start} \end{Bmatrix}$$
+%
+Since the goal is defined as above, the second term effectivley only matters
+when the search is one step from the goal. The heuristic $h(x)$ is defined as 
+%
+$$h(x) = c * \text{\{distance to nearest undiscovered area\} }$$
+%
+Since this underestimates the actual cost it is an admissible heuristic 
+\cite{russell2003artificial}. The heuristic is crucial in order to guide the 
+search in the right direction and consequently avoiding extensive computations. 
+
+\textbf{TODO:} Motivate the cost functions
+
 \section{Case study}
 
 \section{Performance measures}
@@ -89,7 +123,11 @@ number of agents.
 \section{Results}
 
 \section{Discussion}
-Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
+
+\begin{itemize}
+    \item Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
+    \item Heuristic of Global Player should be better
+\end{itemize}
 
 \section{Conclusions}
 
