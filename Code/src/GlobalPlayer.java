@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
- * The player only makes random moves
+ * Player uses an A* search for multiple agents
  */
 public class GlobalPlayer implements Player {
 
@@ -12,7 +13,34 @@ public class GlobalPlayer implements Player {
 
     private int count = 0;
 
+    private MazeGui gui = null;
+    private MazeGui pathGui = null;
+
+
     public GlobalPlayer(){
+
+    }
+
+    /**
+     *
+     * @param showPath      -   gui that shows path
+     * @param showSearch    -   gui that shows search
+     * @param width         -   width of gui window
+     * @param height        -   height of gui window
+     */
+    public GlobalPlayer(boolean showPath, boolean showSearch, int width, int height){
+        Maze m;
+        if (showPath) {
+            m = new Maze();
+            m.randomMaze(width, height);
+            pathGui = new MazeGui(m);
+        }
+
+        if (showSearch) {
+            m = new Maze();
+            m.randomMaze(width, height);
+            gui = new MazeGui(m);
+        }
 
     }
 
@@ -25,7 +53,7 @@ public class GlobalPlayer implements Player {
         // Search for new path if new cells were explored
         if(previousPath == null || previousPath.size() == 1 ||
                 previousPath.get(0).maze.getExplored() != state.maze.getExplored()){
-            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(state), Integer.MAX_VALUE);
+            path = AStar.search(state, new GlobalSuccessor(state), new GlobalHeuristic(state), Integer.MAX_VALUE, gui);
         }
         // Otherwise use old path
         else{
@@ -35,16 +63,29 @@ public class GlobalPlayer implements Player {
 
         // If there is no path or agents at goal
         if(path.size() == 0 || path.size() == 1){
-            paintMaze(state.maze);
             return state;
         }
 
 
         previousPath = path;
-        paintMaze(path.get(1).maze);
+
+
+        if (pathGui != null) {
+            State pathState = state.clone();
+            paintPath(pathState.maze, path);
+            pathGui.updateAgentPos(pathState.agents);
+            pathGui.changeMaze(pathState.maze);
+            pathGui.repaint();
+        }
+
+        if (gui != null) {
+            paintMaze(path.get(1).maze);
+        }
 
         return path.get(1);
     }
+
+
 
     private void paintMaze(Maze m){
         for (int x = 0; x < m.getWidth(); x++) {
@@ -57,6 +98,25 @@ public class GlobalPlayer implements Player {
             }
         }
     }
+
+
+
+    private void paintPath(Maze m, List<State> path){
+
+        for (int x = 0; x < m.getWidth(); x++) {
+            for (int y = 0; y < m.getHeight(); y++) {
+                m.getCell(x, y).setPayload(0);
+            }
+        }
+
+        for (State step : path){
+            for (Agent a : step.agents){
+                Cell c = m.getCell(a.getX(), a.getY());
+                c.setPayload(c.getPayload() + 100);
+            }
+        }
+    }
+
 
     private double distanceToUndiscoveredCell(Maze maze, int xPos, int yPos){
 
@@ -83,6 +143,28 @@ public class GlobalPlayer implements Player {
         return closest;
     }
 
+    private double distanceBetweenAgents(State s){
+        double d = 0;
+        for (Agent a : s.agents){
+            d += distanceToAgents(a, s.agents);
+        }
+        return d;
+    }
+
+    private double distanceToAgents(Agent a, Agent[] otherAgents){
+
+        double d = 0;
+
+        for (Agent oa : otherAgents){
+            if(oa != a) {
+                double td = Math.pow(a.getX() - oa.getX(), 2) + Math.pow(a.getY() - oa.getY(), 2);
+                if (td < 10 * 10){
+                    d += td;
+                }
+            }
+        }
+        return d;
+    }
 
     private class GlobalSuccessor implements AStar.Successor{
 
@@ -119,8 +201,6 @@ public class GlobalPlayer implements Player {
             }
 
             return true;
-
-            //return s.isEOG();
         }
 
         private boolean agentOnBoarder(Maze m, Agent a){
@@ -147,7 +227,13 @@ public class GlobalPlayer implements Player {
 
 
         public double distance(State s1, State s2){
-            return 10 + (s1.maze.getExplored() - s2.maze.getExplored());
+
+            double moveCost = 10;
+            double explored = (s1.maze.getExplored() - s2.maze.getExplored());
+            double dAgents = (distanceBetweenAgents(s1) - distanceBetweenAgents(s2));
+            //dAgents /= (Math.pow(s1.maze.getHeight(), 2) + Math.pow(s1.maze.getWidth(), 2));
+
+            return moveCost + explored; //+ 0.1 * dAgents;
         }
 
         public double costToGoal(State s){
@@ -155,58 +241,14 @@ public class GlobalPlayer implements Player {
             double sum = 0;
             for (Agent a : s.agents){
                 double d = distanceToUndiscoveredCell(start.maze, a.getX(), a.getY());
+                //d /= (Math.pow(s.maze.getHeight(), 2) + Math.pow(s.maze.getWidth(), 2));
                 if(d==1){
                     sum -= 100000;
                 }else{
                     sum += d;
                 }
-                //sum += d;
             }
             return sum;
-
-
-            //return 0;
-
-            /*
-            List<Double> closest = new ArrayList<>();
-
-            for (int i = 0; i < s.agents.length; i++){
-                closest.add(Double.MAX_VALUE);
-            }
-
-
-            for (int x = 0; x < s.maze.getWidth(); x++){
-                for (int y = 0; y < s.maze.getHeight(); y++){
-
-                    Cell c = s.maze.getCell(x, y);
-
-                    if(!c.isFound()){
-
-                        for (int i = 0; i < closest.size(); i++){
-                            double d = Math.pow(x - s.agents[i].getX(), 2) + Math.pow(y - s.agents[i].getY(), 2);
-
-                            if(d < closest.get(i)){
-                                closest.set(i, d);
-                            }
-
-                        }
-
-
-                    }
-
-                }
-
-            }
-
-            double sum = 0;
-
-            for (Double d : closest){
-                sum += Math.pow(d, 3);
-            }
-
-            return sum;*/
-            //return s.maze.getHeight() * s.maze.getWidth() - s.maze.getExplored();
-
         }
 
     }

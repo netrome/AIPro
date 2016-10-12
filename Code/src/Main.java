@@ -44,8 +44,13 @@ public class Main {
         	state = player.play(state);
         	agents=state.agents;
         	gui.changeMaze(state.maze);
+<<<<<<< HEAD
+        	try {
+        	    Thread.sleep(0);
+=======
         	/*try {
         	    Thread.sleep(40);
+>>>>>>> 4282cb35483b701d8e07222d63e1da35180113e6
         	} catch(InterruptedException ex) {
         	    Thread.currentThread().interrupt();
         	}*/
@@ -57,8 +62,7 @@ public class Main {
               */
             count++;
             out.append(count+", "+(System.nanoTime()-start)+", "+(state.maze
-                    .getExplored()*1.0/(state.maze.getHeight()*state.maze
-                    .getWidth())) + "\n");
+            		.getExploredPercent()) + "\n");
 
         }
         /*

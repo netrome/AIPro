@@ -370,6 +370,21 @@ public class Maze {
 		return ret;
 	}
 	
+	public double getExploredPercent(){
+		double found = 0;
+		double total = 0;
+		for (int x = 1; x < getWidth()-1; x++){
+			for (int y = 1; y < getHeight()-1; y++){
+				if (getCell(x,y).isFound()){
+					total++;
+					found++;
+				}
+				else if (!getPossibleMoves(x, y).isEmpty())total++;
+				}}
+		return found/total;
+	}
+	
+	
 	/**
      * returns a random position which is not a wall
      */
@@ -382,13 +397,5 @@ public class Maze {
 				}
 			}}
 		return freePos.get((int)(random.nextDouble()*freePos.size()));
-	}
-
-	public static void main(String[] args){
-		Maze maze = new Maze();
-		maze.primsMaze(100, 100);
-		//maze.easyfy(0.9);
-		
-		new MazeGui(maze);
 	}
 }
