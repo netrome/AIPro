@@ -24,10 +24,13 @@ public class Main {
         StringBuilder out = new StringBuilder();
 
         Maze maze = new Maze();
-        maze.primsMaze(50, 50);
-        double easy = 0.5;
+        maze.primsMaze(150, 150);
+        double easy = 0.9;
         maze.easyfy(easy);
-        Player player = new GlobalPlayer();
+        Player player = new ClosestCellPlayer2();
+        //Player player = new GlobalPlayer();
+        //Player player = new DeepAntsPlayer();
+        //Player player = new MDFSPlayer();
         maze.discoverEdges();
         int[] startPos = maze.getFreePos();
         //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
@@ -39,21 +42,18 @@ public class Main {
         
         MazeGui gui = new MazeGui(maze);
         while(!state.maze.isExplored()){
+        	System.out.println("new step");
         	gui.updateAgentPos(agents);
         	gui.repaint();
         	state = player.play(state);
         	agents=state.agents;
         	gui.changeMaze(state.maze);
-<<<<<<< HEAD
+        	gui.repaint();
         	try {
-        	    Thread.sleep(0);
-=======
-        	/*try {
-        	    Thread.sleep(40);
->>>>>>> 4282cb35483b701d8e07222d63e1da35180113e6
+        	    Thread.sleep(10);
         	} catch(InterruptedException ex) {
         	    Thread.currentThread().interrupt();
-        	}*/
+        	}
         	gui.updateAgentPos(agents);
         	gui.repaint();
 
