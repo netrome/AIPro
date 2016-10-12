@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,6 +19,9 @@ public class AntsPlayer implements Player {
             // Get moves
             List<int []> moves = agent.getPossibleMoves();
 
+            // Non deterministic ants
+            Collections.shuffle(moves);
+
             // Get lowest feromone move
             int [] bestmove = {agent.getX(), agent.getY()};
             double minPayload = gameState.maze.getCell(bestmove).getPayload();
@@ -30,7 +34,7 @@ public class AntsPlayer implements Player {
             }
 
             // Release feromone and move
-            gameState.maze.getCell(bestmove).incrementPayload();
+            gameState.maze.getCell(bestmove).incrementPayload(5);
             agent.move(bestmove);
         }
 
