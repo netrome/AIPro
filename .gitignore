@@ -71,3 +71,7 @@ local.properties
 *auto/*
 *.blg
 *.bbl
+
+
+# MACOSX
+*.DS_STORE
