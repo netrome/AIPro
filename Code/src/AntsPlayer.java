@@ -34,7 +34,7 @@ public class AntsPlayer implements Player {
             }
 
             // Release feromone and move
-            gameState.maze.getCell(bestmove).incrementPayload(5);
+            gameState.maze.getCell(bestmove).incrementPayload();
             agent.move(bestmove);
         }
 

@@ -71,6 +71,22 @@ public class Maze {
 	public void setMaze(Cell[][] mazeData) {
 		this.mazeData = mazeData;
 	}
+	
+	public void setAllPayload(double value){
+		for (int x = 0; x < getWidth(); x++){
+            for (int y = 0; y < getHeight(); y++){
+                getCell(x,y).setPayload(value);
+            }
+        }
+	}
+	
+	public void setAllOwners(int i) {
+		for (int x = 0; x < getWidth(); x++){
+            for (int y = 0; y < getHeight(); y++){
+                getCell(x,y).setAgentID(i);
+            }
+        }
+	}
 
     /**
      * Returns a list of neighbouring cells.
@@ -108,6 +124,32 @@ public class Maze {
         List<int []> neighbours = getNeighbours(xpos, ypos);
         List<int []> moves = new ArrayList<>();
 
+        for (int[] cord : neighbours){
+            Cell cell = getCell(cord[0], cord[1]);
+            if (!cell.isWall() || !cell.isFound()){
+                moves.add(cord);
+            }
+        }
+
+        return moves;
+    }
+    
+    
+    /**
+     * Get possible moves from a position but return
+     * empty lists from unexplored terrain (to stop
+     * searching)
+     * @param pos
+     * @return
+     */
+    
+    public List<int[]> getPossibleMovesV2(int[] pos){
+        return getPossibleMovesV2(pos[0], pos[1]);
+    }
+    public List<int[]> getPossibleMovesV2(int xpos, int ypos){
+        List<int []> neighbours = getNeighbours(xpos, ypos);
+        List<int []> moves = new ArrayList<>();
+        if (!getCell(xpos, ypos).isFound())return moves;
         for (int[] cord : neighbours){
             Cell cell = getCell(cord[0], cord[1]);
             if (!cell.isWall() || !cell.isFound()){

@@ -24,12 +24,11 @@ public class Main {
             long count = 0;
             long start = System.nanoTime();
             StringBuilder out = new StringBuilder();
-
             Maze maze = new Maze(seed);
             maze.primsMaze(50, 50);
             double easy = 0.5;
             maze.easyfy(easy);
-            Player player = new MDFSPlayer();
+            Player player = new ClosestCellPlayer2();
             maze.discoverEdges();
             int[] startPos = maze.getFreePos();
             //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());

@@ -4,6 +4,8 @@
 \usepackage[parfill]{parskip}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
 
+\usepackage{amsmath}
+
 \title{Team 2: Multi agent maze exploration}
 \author{ Mårten Nilsson \texttt{marten3@kth.se}, Patrik Barkman
   \texttt{barkm@kth.se} \\ Axel Demborg \texttt{demborg@kth.se}, Elon Såndberg
@@ -30,13 +32,91 @@ another opportunity for these situations arises. The exploration could be
 performed by specialized robots. This does not put any unneccessary human lives
 at risk and could possibly lead to a more efficient operation.
 
-
+One of the greatest challenges for automated multi agent exploration is how to
+coordinate the agents in the unknown area. Depending on the limitations of the
+robots in the terrain, different methods of addressing the problem arises. In
+this report the focus is on some of the established algorithms in the field as
+well as proposing some modifications. This study seeks to obtain data to provide
+new knowledge of how these algorithms perform in a maze like environment where
+conventional heuristics not always result in decent performance.
 
 \section{Related work}
+A considerable amount of literature has been published on multi agent
+coordination motivated by search and rescue operations. Ferranit, Trigoni and
+Levene proposed the \textit{Brick\&Mortar} algorithm in which the agents operate
+on local information and communicate indirectly with each other by leaving
+information tags at visited points \cite{ferranti2007brick}. Their algorithm is
+inspired by the \textit{Ants} algorithm proposed by Koenig and Liu \cite{koenig2001terrain} and the
+\textit{Multiple depth first search (MDFS)} algorithm which first occured in \cite{tarry1895probleme}. 
+
+Traditionaly, the problem of multi agent exploration have been seen as a
+distinct part of serarch and rescue operations. However, Becker, Blatt and
+Szczerbicka proposed the flooding algorithm \cite{becker2013multi} in which the
+exploration and rescue parts of the operation work in parallell. In their
+algorithm the exploration agents act on local information and frequently report
+back to a base of operations.
 
 \section{Problem formulation}
 
+Prims maze...
+
 \section{Method(s)}
+
+\subsection{Ants}
+
+\subsection{Multiple Depth First Search (MDFS)}
+
+\subsection{Deep Ants}
+
+\subsection{Decentralized Search with Global Information}
+
+\subsection{Centralized Search with Global Information}
+In addition to the methods based on decentralized planning, attempts have been
+made to device an algorithm with centralized planning using global information.
+Such an algorithm could be realizable in environments where all agents are able
+to communicate with a centralized system. Theoretically, this approach should
+be the most effective, but also the most computationally demanding. This is
+mainly due to the dimension of the search space grows exponentially with the
+number of agents.
+
+The method is based on the $A^*$ search algorithm. It is an informed search
+based on the cost function
+%
+$$f(x) = g(x) + h(x)$$
+%
+where $g(x)$ is the cost of traversing from the start to the state $x$ and
+$h(x)$ is an heuristic that estimates the cost from $x$ to the goal. In this
+case the start state consists of any possible placement of the agents in the
+enviroment and in genernal the environment has only partly been explored by the
+agents. The goal state is defined such that all the agents should be positioned
+on a border to an undiscovered area of the environment. Since the agents will
+have to travel different distance to reach such a border, as soon as one agent 
+has found its way to the border its position is no longer varied during the 
+remaining search.
+
+The function $g(x)$ is defined as
+%
+$$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
+\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at $x$} \\ - \\ \text{
+explored area at start} \end{Bmatrix}$$
+%
+Since the goal is defined as above, the second term effectivley only matters
+when the search is one step from the goal. This choice of cost function should
+inclince the agents to prioritize goals that are close and approach that area in
+such a way as to discover as large area as possible.
+
+The heuristic $h(x)$ is defined as 
+%
+$$h(x) = c * \text{\{distance to nearest undiscovered area\} }$$
+%
+Since this underestimates the actual cost it is an admissible heuristic 
+\cite{russell2003artificial}. The heuristic is crucial in order to guide the 
+search in the right direction and consequently avoiding extensive computations.
+This heuristic is in practice an estimate of the first term in $g(x)$ ---
+unknown areas that are closer to the agent is prioritized.
+
+In the case study explained below the coefficients $a = 10$, $b = 1$ and $c =
+1$ were used.
 
 \section{Case study}
 
@@ -51,9 +131,16 @@ at risk and could possibly lead to a more efficient operation.
 
 \section{Discussion}
 
+\begin{itemize}
+    \item Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
+    \item Heuristic of Global Player should be better
+\end{itemize}
+
 \section{Conclusions}
 
 
+\bibliographystyle{unsrt}
+\bibliography{references}
+
 
 \end{document}
-
