@@ -101,15 +101,22 @@ $$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
 explored area at start} \end{Bmatrix}$$
 %
 Since the goal is defined as above, the second term effectivley only matters
-when the search is one step from the goal. The heuristic $h(x)$ is defined as 
+when the search is one step from the goal. This choice of cost function should
+inclince the agents to prioritize goals that are close and approach that area in
+such a way as to discover as large area as possible.
+
+The heuristic $h(x)$ is defined as 
 %
 $$h(x) = c * \text{\{distance to nearest undiscovered area\} }$$
 %
 Since this underestimates the actual cost it is an admissible heuristic 
 \cite{russell2003artificial}. The heuristic is crucial in order to guide the 
-search in the right direction and consequently avoiding extensive computations. 
+search in the right direction and consequently avoiding extensive computations.
+This heuristic is in practice an estimate of the first term in $g(x)$ ---
+unknown areas that are closer to the agent is prioritized.
 
-\textbf{TODO:} Motivate the cost functions
+In the case study explained below the coefficients $a = 10$, $b = 1$ and $c =
+1$ were used.
 
 \section{Case study}
 
