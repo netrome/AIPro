@@ -26,7 +26,7 @@ public class Main {
             StringBuilder out = new StringBuilder();
             Maze maze = new Maze(seed);
             maze.primsMaze(50, 50);
-            double easy = 1;
+            double easy = 0.5;
             maze.easyfy(easy);
             Player player = new ClosestCellPlayer2();
             maze.discoverEdges();
