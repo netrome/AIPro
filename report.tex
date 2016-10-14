@@ -215,8 +215,6 @@ it should be less likely that the agents be trapped in a smaller area a longer
 period of time. The cost of this is that the algorithm is more computationally
 demanding and requires a collective knowledge base.
 
-\subsection{Decentralized Search with Global Information}
-
 \subsection{Centralized Search with Global Information}
 In addition to the methods based on decentralized planning, attempts have been
 made to device an algorithm with centralized planning using global information.
@@ -296,12 +294,15 @@ line for comparison.
 
 
 \section{Results}
+
 The results of the three agent performance tests for the $50 \times 50$ are
 shown in Figure \ref{fig:perf_iters} and \ref{fig:perf_time}. In Figure
 \ref{fig:perf_iters} the performance is plotted as a function of iterations,
 whereas in Figure \ref{fig:perf_time} the performance is plotted as a function
 of time. On can clearly see that all algorithms outperform the naive random
-algorithm in the number of iterations required. 
+algorithm in the number of iterations required. On the other hand, one can see
+in figure \ref{fig:perf_time} that the centralized search based algorithms have
+slower exploration times than the random algorithm.
 
 \begin{figure}[H]
     \centering
@@ -323,6 +324,7 @@ algorithm in the number of iterations required.
       iterations.}
     \label{fig:perf_iters}
 \end{figure}
+
 
 \begin{figure}[H]
     \centering
@@ -346,8 +348,10 @@ algorithm in the number of iterations required.
 \end{figure}
 
 
-
 \section{Discussion}
+
+
+
 
 \begin{itemize}
     \item Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
