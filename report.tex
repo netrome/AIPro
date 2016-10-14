@@ -84,7 +84,7 @@ how much information each agent can access. Some of the algorithms only use
 information of the cells nearby each player while others assume unrestrained
 communcation between the agents and knowledge of all the discovered cells.
 
-These assumptions and  constraints and on the environment imply many
+These assumptions and constraints on the environment imply many
 simplifications of real life scenarios such as search and rescue operations,
 but the environemnt should still suffices to obtain a baseline of the
 algorithm's efficiency.
@@ -263,6 +263,13 @@ unknown areas that are closer to the agent is prioritized.
 
 In the case study explained below the coefficients $a = 10$, $b = 1$ and $c =
 1$ were used.
+
+It was later realized that this algorithm does not exploit all
+information available through the search. The path for each agent is more or
+less generated individually. This lead to the development of an additional
+centralized algorithm which resolves the problem of having to search through
+\emph{all} states reachable between each time step. This algorithm is outlined
+below.
 
 \subsection{Centralized Search with Global Information with individual search}
 An attempt to make a less computationally demanding centralized search with global information was made.
