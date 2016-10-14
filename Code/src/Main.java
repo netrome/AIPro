@@ -47,16 +47,16 @@ public class Main {
             if (playerType==0){
             	player = new GlobalPlayer();
             }
-            if (playerType==1){
+            else if(playerType==1){
             	player = new ClosestCellPlayer2();
             }
-            if (playerType==2){
+            else if (playerType==2){
             	player = new AntsPlayer();
             }
-            if (playerType==3){
+            else if (playerType==3){
             	player = new DeepAntsPlayer();
             }
-            else{
+            else {
             	player = new MDFSPlayer();
             }
             maze.discoverEdges();

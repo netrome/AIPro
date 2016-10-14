@@ -52,6 +52,7 @@ figs = containers.Map;
 for key = metas.keys
     k = key{1}; %god damened cells... 
     figName = strcat('Covered_vs_iterations_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+    figName = strrep(figName,'.','');
     dataName = metas(k).a;
     if(figs.isKey(figName))
         figure(figs(figName));
@@ -73,6 +74,7 @@ end
 for key = metas.keys
     k = key{1}; %god damened cells... 
     figName = strcat('Covered_vs_time_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+    figName = strrep(figName,'.','');
     dataName = metas(k).a;
     if(figs.isKey(figName))
         figure(figs(figName));
