@@ -273,9 +273,11 @@ performance of the previously mentioned algorithms within the constraints of
 the current problem formulation. All algorithms were tested with three agents
 exploring a $50 \times 50$ prims maze reduced by $0 \%, 50 \% $ and $100\%$, where the
 reduction was performed by randomly replacing wall cells with free space cells.
+
 For the algorithms with the ability to scale to higher number of agents for this
-maze size, the same test was performed for $10$ and $100$ agents for maze sizes
-$50 \times 50$ and $100 \times 100$. 
+maze size, the numbers of iterations required for full exploration for different
+numbers of agents was evaluated. This was performed for 10 different equidistant settings in
+the range of $1$ to $91$ agents. 
 
 The performance of the algorithms was evaluated by measuring both exploration
 percentage as a function of number of iterations and as a function of time. A
@@ -292,6 +294,8 @@ of time. On can clearly see that all algorithms outperform the naive random
 algorithm in the number of iterations required. On the other hand, one can see
 in figure \ref{fig:perf_time} that the centralized search based algorithms have
 slower exploration times than the random algorithm.
+
+In Figure \ref{fig:scale} the result for the  
 
 \begin{figure}[H]
     \centering
@@ -338,8 +342,10 @@ slower exploration times than the random algorithm.
 
 \begin{figure}[H]
   \centering
-      \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=10.eps}
-  \caption{...}
+      \includegraphics[width=\textwidth]{Time_to_goal_vs_agents_50x50_map_Easy=05.eps}
+  \caption{Agent performance for the scalable algorithms as a function of number
+    of agents.}
+  \label{fig:scale}
 \end{figure}
 
 \section{Discussion}
