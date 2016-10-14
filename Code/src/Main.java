@@ -15,31 +15,61 @@ public class Main {
      * Sets up a maze, a certain number of agents and a player
      * and runs a game with a gui
      */
-    public static void main(String[] args) {
+    public static void main(String args[]){
+    	run(5,0.5,50,1);
+    	System.out.println("Ran.");
+    	/*
+    	for (int playerType = 1; playerType<5;playerType++){
+    		for (int agents=1;agents<100;agents+=5){
+    			run(agents,0.5,50,playerType);
+    			System.out.println("Run "+playerType+" out of 4 with "+agents+" agetns.");
+    	}}
+    	*/
+    }
+    
+    public static void run( int numberOfAgents, double easy, int mazeSize ,int playerType) {
         /*
         Variables for keeping track of performance
          */
+    	MazeGui gui = null;
         int[] seeds = {42,1337,137,628};
         for(int seed:seeds) {
             long count = 0;
             long start = System.nanoTime();
             StringBuilder out = new StringBuilder();
             Maze maze = new Maze(seed);
-            maze.primsMaze(50, 50);
-            double easy = 0.5;
+            maze.primsMaze(mazeSize, mazeSize);
+            //double easy = 0.5;
             maze.easyfy(easy);
-            Player player = new ClosestCellPlayer2();
+            maze.easyfy(easy);
+            Player player;
+            System.out.println(playerType);
+            if (playerType==0){
+            	player = new GlobalPlayer();
+            }
+            if (playerType==1){
+            	player = new ClosestCellPlayer2();
+            }
+            if (playerType==2){
+            	player = new AntsPlayer();
+            }
+            if (playerType==3){
+            	player = new DeepAntsPlayer();
+            }
+            else{
+            	player = new MDFSPlayer();
+            }
             maze.discoverEdges();
             int[] startPos = maze.getFreePos();
             //System.out.println(maze.getCell(startPos[0], startPos[1]).isWall());
 
-            int numberOfAgents = 3;
+            //int numberOfAgents = 3;
             Agent[] agents = new Agent[numberOfAgents];
             for (int i = 0; i < numberOfAgents; i++)
                 agents[i] = new Agent(startPos[0], startPos[1], maze);
             State state = new State(agents, maze);
 
-            MazeGui gui = new MazeGui(maze);
+            gui = new MazeGui(maze);
             while (!state.maze.isExplored()) {
                 gui.updateAgentPos(agents);
                 gui.repaint();
@@ -87,5 +117,6 @@ public class Main {
 
         System.err.println("Pling!");
         //Cell cell = new Cell();
+        gui.setVisible(false);
     }
 }
