@@ -6,9 +6,14 @@
 
 \usepackage{amsmath}
 
+
 \usepackage{graphicx}
+\usepackage{epstopdf}
 \usepackage[center]{caption}
 \usepackage{subcaption}
+
+% Path to images
+\graphicspath{{./Code/src/matlab/figs/}}
 
 \usepackage{float}
 
@@ -35,7 +40,7 @@ task. For an example, during search and rescue operations in hostile
 environments such as a building on fire one is not inclined to put more human
 lives at risk than necessary. With the recent advances in AI and robotics,
 another opportunity for these situations arises. The exploration could be
-performed by specialized robots. This does not put any unneccessary human lives
+performed by specialized robots. This does not put any unnecessary human lives
 at risk and could possibly lead to a more efficient operation.
 
 One of the greatest challenges for automated multi agent exploration is how to
@@ -55,21 +60,21 @@ information tags at visited points \cite{ferranti2007brick}. Their algorithm is
 inspired by the \textit{Ants} algorithm proposed by Koenig and Liu \cite{koenig2001terrain} and the
 \textit{Multiple depth first search (MDFS)} algorithm which first occured in \cite{tarry1895probleme}. 
 
-Traditionaly, the problem of multi agent exploration have been seen as a
-distinct part of serarch and rescue operations. However, Becker, Blatt and
+Traditional, the problem of multi agent exploration have been seen as a
+distinct part of search and rescue operations. However, Becker, Blatt and
 Szczerbicka proposed the flooding algorithm \cite{becker2013multi} in which the
-exploration and rescue parts of the operation work in parallell. In their
+exploration and rescue parts of the operation work in parallel. In their
 algorithm the exploration agents act on local information and frequently report
 back to a base of operations.
 
 \section{Problem formulation}
-A twodimensional maze-like environment is chosen as the setting in which to
+A two-dimensional maze-like environment is chosen as the setting in which to
 evaluate different approaches to the problem of map generation/exploration.
 The only obstacles that exist in the environment are walls through which the
 agents cannot pass. A number of agents are positioned in the environment and
 their task is to explore the maze as effectively as possible.
 
-The environemnt is represented as a two dimensional grid where each cell can
+The environment is represented as a two dimensional grid where each cell can
 either be empty or a wall. In addition, the agents can leave traces in cells
 they pass in order to indicate to other agents that the cell has previously
 been visited. The agents are allowed to move to one of the (non-diagonally)
@@ -78,11 +83,11 @@ adjacent cells at each time step.
 A number of algorithms have been studied and they use different assumptions of
 how much information each agent can access. Some of the algorithms only use
 information of the cells nearby each player while others assume unrestrained
-communcation between the agents and knowledge of all the discovered cells.
+communication between the agents and knowledge of all the discovered cells.
 
 These assumptions and constraints on the environment imply many
 simplifications of real life scenarios such as search and rescue operations,
-but the environemnt should still suffices to obtain a baseline of the
+but the environment should still suffices to obtain a baseline of the
 algorithm's efficiency.
 
 The mazes used for testing are generated with Prim's algorithm
@@ -111,19 +116,19 @@ randomly removed.
 A number of different techniques have been developed to coordinate multiple
 agents in exploration tasks. The \textit{Ants} algorithm is a commonly used
 technique for this. In the \textit{Ants} algorithm, the agents communicate with
-eachother through a pheromone. Each cell contains a certain
+each other through a pheromone. Each cell contains a certain
 pheromone level. When an agent visits a cell, the pheromone level of the cell is
-increased. The desicion making process of the agents is designed such that an
+increased. The decision making process of the agents is designed such that an
 agent chooses to move to the neighbouring cell with the lowest pheromone level.
 
-This desicion process is as the name of the algorithm suggests, inspired by
+This decision process is as the name of the algorithm suggests, inspired by
 ants. A major advantage of the \textit{Ants} algorithm is that the
-agents only operate on local information. Moreover, the desicion making process is
+agents only operate on local information. Moreover, the decision making process is
 fast and computationally efficient. The algorithm also guarantees that the whole
 maze will be explored in finite time. On the other hand the nature of the model
 can cause ants to get stuck in local areas of low pheromone levels for quite
 some time before the level has risen enough so that the ants can move on towards
-unexplored spaces. This may cause an unneccessary high level of revisitations of cells.
+unexplored spaces. This may cause an unnecessary high level of revisitations of cells.
 
 \subsection{Multiple Depth First Search (MDFS)}
 The problem to discover all the cells in the maze can easily be seen as a search
@@ -133,9 +138,9 @@ and with some minor modifications this algorithm can also be used for multiple
 collaborating agents. The algorithm works as follows.
 
 \begin{enumerate}
-\item If there are neighboring \textit{unvistited} cells
+\item If there are neighbouring \textit{unvisited} cells
   \begin{enumerate}
-  \item move to one of the \textit{unvistited} cells at random.
+  \item move to one of the \textit{unvisited} cells at random.
   \item mark the cell as \textit{explored} with the agents ID.
   \item mark the cell with the direction of the previous cell, the \textit{parent cell} 
   \end{enumerate}
@@ -167,24 +172,24 @@ situations when communication between agents is hard and computational resources
 are scarce.
 \subsection{Deep Ants}
 In the current problem formulation, the agents are assumed to be able to
-communicate directly with eachother. Therefore algorithms which are created to
+communicate directly with each other. Therefore algorithms which are created to
 operate only on local information may be modified for increased performance. The
-\textit{Deep Ants} algorithm is a mofication of the \textit{Ants} algorithm
+\textit{Deep Ants} algorithm is a modification of the \textit{Ants} algorithm
 where this knowledge is used.
 
 The \textit{Deep Ants} algorithm is in the same manner as the \textit{Ants}
 algorithm a decentralized planning algorithm where the agents plan their actions
-individually and independently of eachother, with respect to the current state
+individually and independently of each other, with respect to the current state
 of the area. There is two key differences
 between the \textit{Deep Ants} algorithm and the \textit{Ants} algorithm. The
 first difference is that when an agent visits a cell in the \textit{Deep Ants}
 algorithm, not only is the pheromone level of the cell increased by a level $l_1$ but also the
 pheromone level of the neighbouring cells are increased by a level $l_2$ so that
 $l_2 * n = l_1$. Here $n$ is a parameter which controls the ratio of the
-pheormone levels. 
+pheromone levels. 
 
 The other key difference between the \textit{Deep Ants} and the \textit{Ants}
-algorithm is the desicion making process. In the regular \textit{Ants} algorithm
+algorithm is the decision making process. In the regular \textit{Ants} algorithm
 the goal is to minimize the encountered pheromone level in the next step for the
 agent. In the \textit{Deep Ants} algorithm the goal is to move to the cell
 $\mathbf{x}$ that minimizes
@@ -194,7 +199,7 @@ $$ p_d(\mathbf{x}) = p_1(\mathbf{x}) + \begin{cases} \text{min}_i
   l(\mathbf{x}) & \text{if } d = 1 \end{cases}$$
 
 where $l(\mathbf{x})$ is the pheromone level at cell $\mathbf{x}$ and
-$\mathbf{x_i}$ is the i:th cell that is adjecant to cell $\mathbf{x}$. The index
+$\mathbf{x_i}$ is the i:th cell that is adjacent to cell $\mathbf{x}$. The index
 $d$ is the search depth and is a parameter in the model. This means that the
 agents in the \textit{Deep Ants} algorithm tries to minimize the total amount of
 encountered pheromone in the next $d$ steps.  
@@ -205,12 +210,10 @@ Agents are naive and assumes every move is possible outside of the explored area
 
 The benefit of the \textit{Deep Ants} approach compared to the \textit{Ants}
 algorithm is that the agents can chose to move to areas of higher pheromone
-levels in case there is a low feromone area on the other side of it. Therefore
+levels in case there is a low pheromone area on the other side of it. Therefore
 it should be less likely that the agents be trapped in a smaller area a longer
 period of time. The cost of this is that the algorithm is more computationally
 demanding and requires a collective knowledge base.
-
-\subsection{Decentralized Search with Global Information}
 
 \subsection{Centralized Search with Global Information}
 In addition to the methods based on decentralized planning, attempts have been
@@ -229,7 +232,7 @@ $$f(x) = g(x) + h(x)$$
 where $g(x)$ is the cost of traversing from the start to the state $x$ and
 $h(x)$ is an heuristic that estimates the cost from $x$ to the goal. In this
 case the start state consists of any possible placement of the agents in the
-enviroment and in genernal the environment has only partly been explored by the
+environment and in general the environment has only partly been explored by the
 agents. The goal state is defined such that all the agents should be positioned
 on a border to an undiscovered area of the environment. Since the agents will
 have to travel different distance to reach such a border, as soon as one agent 
@@ -242,9 +245,9 @@ $$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
 \end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at start} \\ - \\ \text{
 explored area at $x$} \end{Bmatrix}$$
 %
-Since the goal is defined as above, the second term effectivley only matters
+Since the goal is defined as above, the second term effectively only matters
 when the search is one step from the goal. This choice of cost function should
-inclince the agents to prioritize goals that are close and approach that area in
+incline the agents to prioritize goals that are close and approach that area in
 such a way as to discover as large area as possible.
 
 The heuristic $h(x)$ is defined as 
@@ -270,34 +273,81 @@ performance of the previously mentioned algorithms within the constraints of
 the current problem formulation. All algorithms were tested with three agents
 exploring a $50 \times 50$ prims maze reduced by $0 \%, 50 \% $ and $100\%$, where the
 reduction was performed by randomly replacing wall cells with free space cells.
-The performance of the algorithms was evaluated by measuring both exploration
-percentage as a function of number of iterations and as a function of time.
-
-
 For the algorithms with the ability to scale to higher number of agents for this
 maze size, the same test was performed for $10$ and $100$ agents for maze sizes
 $50 \times 50$ and $100 \times 100$. 
 
+The performance of the algorithms was evaluated by measuring both exploration
+percentage as a function of number of iterations and as a function of time. A
+naive algorithm where the agents move randomly have been implemented as a base
+line for comparison.
 
-\section{Performance measures}
-To be removed...
-\begin{itemize}
-\item Exploration percentage vs number of iterations
-\item Exploration time vs number of agents
-\item Time per iteration vs number of iterations
-\end{itemize}
 
 \section{Results}
+The results of the three agent performance tests for the $50 \times 50$ are
+shown in Figure \ref{fig:perf_iters} and \ref{fig:perf_time}. In Figure
+\ref{fig:perf_iters} the performance is plotted as a function of iterations,
+whereas in Figure \ref{fig:perf_time} the performance is plotted as a function
+of time. On can clearly see that all algorithms outperform the naive random
+algorithm in the number of iterations required. On the other hand, one can see
+in figure \ref{fig:perf_time} that the centralized search based algorithms have
+slower exploration times than the random algorithm.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=00.eps}
+        \caption{ Algorithm performance when evaluated on open space.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=05.eps}
+        \caption{ Algorithm performance in a 50\% reduced maze. }
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=10.eps}
+        \caption{ Algorithm performance in a Prim's maze. }
+    \end{subfigure}
+    
+    \caption{Explored percentage by the algorithms as a function of
+      iterations.}
+    \label{fig:perf_iters}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=00.eps}
+        \caption{ Algorithm performance when evaluated on open space.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=05.eps}
+        \caption{ Algorithm performance in a 50\% reduced maze. }
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=10.eps}
+        \caption{ Algorithm performance in a Prim's maze. }
+    \end{subfigure}
+    
+    \caption{Explored percentage by the algorithms as a function of
+      time.}
+    \label{fig:perf_time}
+\end{figure}
 
 \section{Discussion}
 
 A version of the CSGI algorithm was tried where the agents searched for a new cell to walk towards if another agent was closer to the cell it was trying to walk towards. This should theoretically make the algorithm better but the computational power required increases quite a lot and the efficiency gained is marginal. More optimizations could be done on the CSGI algorithm to solve this problem and still maintain the time performance by first finding the horizon of unexplored cells and sort the search for all agents based on their euclidean or Manhattan distance to their closest cell.
 
 
+
+
+
 \begin{itemize}
     \item Why not test Brick\&Mortar? -MDFS not optimal in our setting etc...
     \item Heuristic of Global Player should be better
-    \item Popssible optimizations of algorithms and consequences of this
+    \item Possible optimizations of algorithms and consequences of this
 \end{itemize}
 
 \section{Conclusions}
