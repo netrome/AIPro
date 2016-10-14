@@ -61,7 +61,7 @@ for key = metas.keys
     else
         fig = figure('name',figName);
         hold on
-        title(figName);
+        %title(figName);
         plot(vals(k),'displayname',dataName)
         xlabel('Iterations')
         ylabel('Fraction of maze discovered')
@@ -82,7 +82,7 @@ for key = metas.keys
     else
         fig = figure('name',figName);
         hold on
-        title(figName);
+        %title(figName);
         plot(times(k),vals(k),'displayname',dataName)
         xlabel('Time [ns]')
         ylabel('Fraction of maze discovered')
