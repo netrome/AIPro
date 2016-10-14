@@ -74,7 +74,7 @@ agents cannot pass. A number of agents are positioned in the environment and
 their task is to explore the maze as effectively as possible.
 
 The environemnt is represented as a two dimensional grid where each cell can
-either be empty or a wall. In addition, the agent's can leave traces in cells
+either be empty or a wall. In addition, the agents can leave traces in cells
 they pass in order to indicate to other agents that the cell has previously
 been visited. The agents are allowed to move to one of the (non-diagonally)
 adjacent cells at each time step. 
@@ -243,7 +243,7 @@ remaining search.
 The function $g(x)$ is defined as
 %
 $$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
-\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at start} \\ - \\ \text{
+\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at start} \\ - \\ \text{
 explored area at $x$} \end{Bmatrix}$$
 %
 Since the goal is defined as above, the second term effectivley only matters
@@ -253,7 +253,7 @@ such a way as to discover as large area as possible.
 
 The heuristic $h(x)$ is defined as 
 %
-$$h(x) = c * \text{\{distance to nearest undiscovered area\} }$$
+$$h(x) = c * \text{\{distance to nearest undiscovered area\} }$$
 %
 Since this underestimates the actual cost it is an admissible heuristic 
 \cite{russell2003artificial}. The heuristic is crucial in order to guide the 
@@ -263,6 +263,13 @@ unknown areas that are closer to the agent is prioritized.
 
 In the case study explained below the coefficients $a = 10$, $b = 1$ and $c =
 1$ were used.
+
+\subsection{Centralized Search with Global Information with individual search}
+An attempt to make a less computationally demanding centralized search with global information was made.
+The method searched the known map for each agent ignoring all other agents in order to cut down the branching factor of the search. Each agent searches for it's closest unexplored cell, when this cell is found it is marked with the number distance in steps to the agent and future agents will ignore this cell in their searches if they cannot walk to using fewer steps than what it has been marked for. If the agents fails to find a cell because all cells are marked it unmarks all the cells and searches again. This is done to prevent agents from not moving since staying in unexplored territory will be worse than moving towards an unexplored cell that another agent is heading towards.
+
+A version of the algorithm was tried where the agents searched for a new cell to walk towards if another agent was closer to the cell it was trying to walk towards. This should theoretically make the algorithm better but the computational power required increases quite a lot and the efficiency gained is marginal since all the agents will move towards the unexplored horizon either way and a small difference in exact goal does not make much of a difference. There are however many other ways to speed up the performance of this algorithm, such as keeping track of the number of unexplored reachable cells in order to know when to clear the marks off the cells without having to search through all the cells first. Another way to optimize this algorithm would be to save the whole path towards the target for each agent so that if no new information has been gained from one game state to the next all agents does not have to do a new search since their targets will be unchanged. All of this will only increase the time performance of the algorithm and not the number of steps to explore the space, because of this and time constraints these optimizations were not implemented.
+
 
 \section{Case study}
 A case-study approach was adopted to obtain further in-depth information of the
