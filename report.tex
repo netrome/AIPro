@@ -338,8 +338,26 @@ slower exploration times than the random algorithm.
 
 \section{Discussion}
 
-A version of the CSGI algorithm was tried where the agents searched for a new cell to walk towards if another agent was closer to the cell it was trying to walk towards. This should theoretically make the algorithm better but the computational power required increases quite a lot and the efficiency gained is marginal. More optimizations could be done on the CSGI algorithm to solve this problem and still maintain the time performance by first finding the horizon of unexplored cells and sort the search for all agents based on their euclidean or Manhattan distance to their closest cell.
+An initial objective of the project was to identify performance differences in
+conventional exploration algorithms in a maze like environment. The results of
+this study indicate that she shape of the environment has little influence in
+the performance of the algorithms. It is clear that in a Prim's maze, all
+algorithms require more iterations and time to finish. It is interesting to note
+that the only drastical performance change when increasing the maziness occurs
+for the random algorithm.
 
+Another purpose of this study was to adress how to improve a set of conventional
+algorithms when higher level of communication is possible. The most obvious
+finding to emerge from the results is that the more informed algorithms finished
+the exploration in less iterations than the algorithms operating on more local
+knowledge. However, the algorithms working on global information required more
+time to compute the desicions of the agents which caused them to take more time
+to finish. In realistic scenarios performing a move for an agent takes a non
+neglectable amount of time. Therefore one should concider the scale of this time
+in the application before one rejects a slower algorithm.
+
+
+A version of the CSGI algorithm was tried where the agents searched for a new cell to walk towards if another agent was closer to the cell it was trying to walk towards. This should theoretically make the algorithm better but the computational power required increases quite a lot and the efficiency gained is marginal. More optimizations could be done on the CSGI algorithm to solve this problem and still maintain the time performance by first finding the horizon of unexplored cells and sort the search for all agents based on their euclidean or Manhattan distance to their closest cell.
 
 
 
