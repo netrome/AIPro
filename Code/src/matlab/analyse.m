@@ -57,7 +57,7 @@ for key = metas.keys
         dataName = metas(k).a;
         dataName = strrep(dataName,'Player','');
         dataName = strrep(dataName,'5','');
-        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'DeepAnts','Deep Ants');
         dataName = strrep(dataName,'Global','CSG');
         dataName = strrep(dataName,'Closest','CSGI');        if(figs.isKey(figName))
             figure(figs(figName));
@@ -85,7 +85,7 @@ for key = metas.keys
         dataName = metas(k).a;
         dataName = strrep(dataName,'Player','');
         dataName = strrep(dataName,'5','');
-        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'DeepAnts','Deep Ants');
         dataName = strrep(dataName,'Global','CSG');
         dataName = strrep(dataName,'Closest','CSGI');
         if(figs.isKey(figName))
@@ -115,7 +115,7 @@ for key = metas.keys
         dataName = metas(k).a;
         dataName = strrep(dataName,'Player','');
         dataName = strrep(dataName,'5','');
-        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'DeepAnts','Deep Ants');
         dataName = strrep(dataName,'Global','CSG');
         dataName = strrep(dataName,'Closest','CSGI');
         
