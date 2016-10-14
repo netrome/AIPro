@@ -55,7 +55,11 @@ for key = metas.keys
         figName = strcat('Covered_vs_iterations_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
         figName = strrep(figName,'.','');
         dataName = metas(k).a;
-        if(figs.isKey(figName))
+        dataName = strrep(dataName,'Player','');
+        dataName = strrep(dataName,'5','');
+        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'Global','CSG');
+        dataName = strrep(dataName,'Closest','CSGI');        if(figs.isKey(figName))
             figure(figs(figName));
             plot(vals(k),'displayname',dataName);
             legend('location','southeast')
@@ -79,6 +83,11 @@ for key = metas.keys
         figName = strcat('Covered_vs_time_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
         figName = strrep(figName,'.','');
         dataName = metas(k).a;
+        dataName = strrep(dataName,'Player','');
+        dataName = strrep(dataName,'5','');
+        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'Global','CSG');
+        dataName = strrep(dataName,'Closest','CSGI');
         if(figs.isKey(figName))
             figure(figs(figName));
             plot(times(k),vals(k),'displayname',dataName);
@@ -95,6 +104,56 @@ for key = metas.keys
         end
     end
 end
+
+%Plot steps till finish
+data = containers.Map;
+for key = metas.keys
+    k = key{1};
+    if(metas(k).n ~= '3')
+        figName = strcat('Time_to_goal_vs_agents_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+        figName = strrep(figName,'.','');
+        dataName = metas(k).a;
+        dataName = strrep(dataName,'Player','');
+        dataName = strrep(dataName,'5','');
+        dataName = strrep(dataName,'DeepAnts','Deep ants');
+        dataName = strrep(dataName,'Global','CSG');
+        dataName = strrep(dataName,'Closest','CSGI');
+        
+        if(figs.isKey(figName))
+            figure(figs(figName));
+            if(data.isKey(dataName))
+                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1))]];
+            else
+                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1))];
+            end
+        else
+            fig = figure('name',figName);
+            hold on
+            %title(figName);
+            if(data.isKey(dataName))
+                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1))]];
+            else
+                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1))];
+            end
+            figs(figName) = fig;
+        end
+    end
+end
+figure(fig)
+xlabel('Number of agents')
+ylabel('Itereations till done')
+hold on
+for key = data.keys
+    k = key{1};
+    agents = data(k);
+    t = agents(2,:);
+    [agents,i] = sort(agents(1,:));
+    t = t(i);
+    plot(agents,t,'displayname',k);
+end
+legend('location','northeast')
+    
+        
 
 for f = figs.values
     figur = f{1};
