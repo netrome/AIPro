@@ -50,45 +50,49 @@ figs = containers.Map;
 
 %Plot value vs iterations
 for key = metas.keys
-    k = key{1}; %god damened cells... 
-    figName = strcat('Covered_vs_iterations_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
-    figName = strrep(figName,'.','');
-    dataName = metas(k).a;
-    if(figs.isKey(figName))
-        figure(figs(figName));
-        plot(vals(k),'displayname',dataName);
-        legend('location','southeast')
-        axis([0,1e4,0,1])
-    else
-        fig = figure('name',figName);
-        hold on
-        %title(figName);
-        plot(vals(k),'displayname',dataName)
-        xlabel('Iterations')
-        ylabel('Fraction of maze discovered')
-        figs(figName) = fig;
+    k = key{1}; %god damened cells...
+    if(metas(k).n == '3')
+        figName = strcat('Covered_vs_iterations_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+        figName = strrep(figName,'.','');
+        dataName = metas(k).a;
+        if(figs.isKey(figName))
+            figure(figs(figName));
+            plot(vals(k),'displayname',dataName);
+            legend('location','southeast')
+            axis([0,1e4,0,1])
+        else
+            fig = figure('name',figName);
+            hold on
+            %title(figName);
+            plot(vals(k),'displayname',dataName)
+            xlabel('Iterations')
+            ylabel('Fraction of maze discovered')
+            figs(figName) = fig;
+        end
     end
 end
 
 %Plot value vs time
 for key = metas.keys
-    k = key{1}; %god damened cells... 
-    figName = strcat('Covered_vs_time_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
-    figName = strrep(figName,'.','');
-    dataName = metas(k).a;
-    if(figs.isKey(figName))
-        figure(figs(figName));
-        plot(times(k),vals(k),'displayname',dataName);
-        legend('location','southeast')
-        axis([0,1e10,0,1])
-    else
-        fig = figure('name',figName);
-        hold on
-        %title(figName);
-        plot(times(k),vals(k),'displayname',dataName)
-        xlabel('Time [ns]')
-        ylabel('Fraction of maze discovered')
-        figs(figName) = fig;
+    k = key{1}; %god damened cells...
+    if(metas(k).n == '3')
+        figName = strcat('Covered_vs_time_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+        figName = strrep(figName,'.','');
+        dataName = metas(k).a;
+        if(figs.isKey(figName))
+            figure(figs(figName));
+            plot(times(k),vals(k),'displayname',dataName);
+            legend('location','southeast')
+            axis([0,1e10,0,1])
+        else
+            fig = figure('name',figName);
+            hold on
+            %title(figName);
+            plot(times(k),vals(k),'displayname',dataName)
+            xlabel('Time [ns]')
+            ylabel('Fraction of maze discovered')
+            figs(figName) = fig;
+        end
     end
 end
 
