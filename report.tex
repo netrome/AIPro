@@ -65,7 +65,45 @@ Prims maze...
 \subsection{Ants}
 
 \subsection{Multiple Depth First Search (MDFS)}
+The problem to discover all the cells in the maze can easily be seen as a search
+problem where we want to find all the cells. This is a problem that would
+normally be solved with a search algorithm such as \textit{Depth First Search}
+and with some minor modifications this algorithm can also be used for multiple
+collaborating agents. The algorithm works as follows.
 
+\begin{enumerate}
+\item If there are neighboring \textit{unvistited} cells
+  \begin{enumerate}
+  \item move to one of the \textit{unvistited} cells at random.
+  \item mark the cell as \textit{explored} with the agents ID.
+  \item mark the cell with the direction of the previous cell, the \textit{parent cell} 
+  \end{enumerate}
+\item Else if the current cell is marked as explored by the current agent
+  \begin{enumerate}
+  \item mark the cell as \textit{visited}
+  \item move to the \textit{parent cell}
+  \end{enumerate}
+\item Else if there are \textit{explored} cells around.
+  \begin{enumerate}
+  \item Move to one of them at random.
+  \end{enumerate}
+\item Else
+  \begin{enumerate}
+  \item terminate
+  \end{enumerate}
+\end{enumerate}
+
+If this procedure is repeated until all agents have terminated it is guaranteed
+that the entire environment will be visited and if there is only one agent each
+cell will be visited exactly twice, once to mark it as explored and once to
+mark it as visited. With multiple agents the guarantee that all cells will be
+visited remains but cells might be visited more than once when the agents are
+moving along cells explored by other agents. The algorithm also suffers from the
+problem that agents can be locked in behind visited cells early in the search
+and hence be rendered useless. Like the \textit{ants} algorithm \textit{MDFS}
+only utilizes locally stored information which makes it well suited for
+situations when communication between agents is hard and computational resources
+are scarce.
 \subsection{Deep Ants}
 
 \subsection{Decentralized Search with Global Information}
