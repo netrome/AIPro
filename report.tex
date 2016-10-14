@@ -6,14 +6,9 @@
 
 \usepackage{amsmath}
 
-
 \usepackage{graphicx}
-\usepackage{epstopdf}
 \usepackage[center]{caption}
 \usepackage{subcaption}
-
-% Path to images
-\graphicspath{{./Code/src/matlab/figs/}}
 
 \usepackage{float}
 
@@ -28,6 +23,7 @@
 \maketitle
 
 \section{Abstract}
+This report evaluates 5 different algorithms for a number of agents to explore an unknown two dimensional environment consisting off walls or free space structured in a grid. The algorithms evaluated are Ants, Deep Ants, Multiple Depth First Search (MDFS), Centralized Search with Global Information (CSG) and Centralized Search with Global Information with individual search (CSGI). A naive algorithm which moves agents randomly was used as a baseline. 
 
 \section{Introduction}
 %Classical planning... perfect information... exploration necessary... multiagent coordination...
@@ -215,7 +211,9 @@ it should be less likely that the agents be trapped in a smaller area a longer
 period of time. The cost of this is that the algorithm is more computationally
 demanding and requires a collective knowledge base.
 
-\subsection{Centralized Search with Global Information}
+\subsection{Decentralized Search with Global Information}
+
+\subsection{Centralized Search with Global Information (CSG)}
 In addition to the methods based on decentralized planning, attempts have been
 made to device an algorithm with centralized planning using global information.
 Such an algorithm could be realizable in environments where all agents are able
@@ -273,75 +271,28 @@ performance of the previously mentioned algorithms within the constraints of
 the current problem formulation. All algorithms were tested with three agents
 exploring a $50 \times 50$ prims maze reduced by $0 \%, 50 \% $ and $100\%$, where the
 reduction was performed by randomly replacing wall cells with free space cells.
+The performance of the algorithms was evaluated by measuring both exploration
+percentage as a function of number of iterations and as a function of time.
+
+
 For the algorithms with the ability to scale to higher number of agents for this
 maze size, the same test was performed for $10$ and $100$ agents for maze sizes
 $50 \times 50$ and $100 \times 100$. 
 
-The performance of the algorithms was evaluated by measuring both exploration
-percentage as a function of number of iterations and as a function of time. A
-naive algorithm where the agents move randomly have been implemented as a base
-line for comparison.
 
+\section{Performance measures}
+To be removed...
+\begin{itemize}
+\item Exploration percentage vs number of iterations
+\item Exploration time vs number of agents
+\item Time per iteration vs number of iterations
+\end{itemize}
 
 \section{Results}
-The results of the three agent performance tests for the $50 \times 50$ are
-shown in Figure \ref{fig:perf_iters} and \ref{fig:perf_time}. In Figure
-\ref{fig:perf_iters} the performance is plotted as a function of iterations,
-whereas in Figure \ref{fig:perf_time} the performance is plotted as a function
-of time. On can clearly see that all algorithms outperform the naive random
-algorithm in the number of iterations required. On the other hand, one can see
-in figure \ref{fig:perf_time} that the centralized search based algorithms have
-slower exploration times than the random algorithm.
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=00.eps}
-        \caption{ Algorithm performance when evaluated on open space.}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=05.eps}
-        \caption{ Algorithm performance in a 50\% reduced maze. }
-    \end{subfigure}
-
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_iterations_for_3_agents_on_50x50_map_Easy=10.eps}
-        \caption{ Algorithm performance in a Prim's maze. }
-    \end{subfigure}
-    
-    \caption{Explored percentage by the algorithms as a function of
-      iterations.}
-    \label{fig:perf_iters}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=00.eps}
-        \caption{ Algorithm performance when evaluated on open space.}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=05.eps}
-        \caption{ Algorithm performance in a 50\% reduced maze. }
-    \end{subfigure}
-
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{Covered_vs_time_for_3_agents_on_50x50_map_Easy=10.eps}
-        \caption{ Algorithm performance in a Prim's maze. }
-    \end{subfigure}
-    
-    \caption{Explored percentage by the algorithms as a function of
-      time.}
-    \label{fig:perf_time}
-\end{figure}
 
 \section{Discussion}
 
 A version of the CSGI algorithm was tried where the agents searched for a new cell to walk towards if another agent was closer to the cell it was trying to walk towards. This should theoretically make the algorithm better but the computational power required increases quite a lot and the efficiency gained is marginal. More optimizations could be done on the CSGI algorithm to solve this problem and still maintain the time performance by first finding the horizon of unexplored cells and sort the search for all agents based on their euclidean or Manhattan distance to their closest cell.
-
-
-
 
 
 \begin{itemize}
