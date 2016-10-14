@@ -51,7 +51,7 @@ figs = containers.Map;
 %Plot value vs iterations
 for key = metas.keys
     k = key{1}; %god damened cells... 
-    figName = strcat('Covered_vs_iterations for_',metas(k).n,'_agents on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+    figName = strcat('Covered_vs_iterations_for_',metas(k).n,'_agents_on_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
     dataName = metas(k).a;
     if(figs.isKey(figName))
         figure(figs(figName));
