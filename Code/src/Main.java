@@ -16,7 +16,7 @@ public class Main {
      * and runs a game with a gui
      */
     public static void main(String args[]){
-    	run(5,0.5,50,1);
+    	run(5, 0.5, 50, 1);
     	System.out.println("Ran.");
     	/*
     	for (int playerType = 1; playerType<5;playerType++){
@@ -32,7 +32,7 @@ public class Main {
         Variables for keeping track of performance
          */
     	MazeGui gui = null;
-        int[] seeds = {42,1337,137,628};
+        int[] seeds = {42, 1337, 137, 628};
         for(int seed:seeds) {
             long count = 0;
             long start = System.nanoTime();
