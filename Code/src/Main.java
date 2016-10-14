@@ -16,15 +16,16 @@ public class Main {
      * and runs a game with a gui
      */
     public static void main(String args[]){
-    	run(5,0.5,50,1);
+    	//run(20,0.5,50,1);
     	System.out.println("Ran.");
-    	/*
+    	
     	for (int playerType = 1; playerType<5;playerType++){
-    		for (int agents=1;agents<100;agents+=5){
+    		for (int agents=1;agents<100;agents+=10){
     			run(agents,0.5,50,playerType);
     			System.out.println("Run "+playerType+" out of 4 with "+agents+" agetns.");
     	}}
-    	*/
+    	
+    	
     }
     
     public static void run( int numberOfAgents, double easy, int mazeSize ,int playerType) {
@@ -47,13 +48,13 @@ public class Main {
             if (playerType==0){
             	player = new GlobalPlayer();
             }
-            if (playerType==1){
+            else if (playerType==1){
             	player = new ClosestCellPlayer2();
             }
-            if (playerType==2){
+            else if (playerType==2){
             	player = new AntsPlayer();
             }
-            if (playerType==3){
+            else if (playerType==3){
             	player = new DeepAntsPlayer();
             }
             else{
