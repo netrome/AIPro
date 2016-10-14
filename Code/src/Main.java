@@ -33,7 +33,7 @@ public class Main {
         Variables for keeping track of performance
          */
     	MazeGui gui = null;
-        int[] seeds = {42,1337,137,628};
+        int[] seeds = {42, 1337, 137, 628};
         for(int seed:seeds) {
             long count = 0;
             long start = System.nanoTime();
@@ -48,7 +48,11 @@ public class Main {
             if (playerType==0){
             	player = new GlobalPlayer();
             }
+<<<<<<< HEAD
             else if (playerType==1){
+=======
+            else if(playerType==1){
+>>>>>>> d5094dfcbc86b3d5ba25436a9d9da5bbb436f13a
             	player = new ClosestCellPlayer2();
             }
             else if (playerType==2){
@@ -57,7 +61,7 @@ public class Main {
             else if (playerType==3){
             	player = new DeepAntsPlayer();
             }
-            else{
+            else {
             	player = new MDFSPlayer();
             }
             maze.discoverEdges();
