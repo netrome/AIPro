@@ -57,6 +57,7 @@ for key = metas.keys
         figure(figs(figName));
         plot(vals(k),'displayname',dataName);
         legend('location','southeast')
+        axis([0,1e4,0,1])
     else
         fig = figure('name',figName);
         hold on
@@ -77,13 +78,41 @@ for key = metas.keys
         figure(figs(figName));
         plot(times(k),vals(k),'displayname',dataName);
         legend('location','southeast')
+        axis([0,1e10,0,1])
     else
         fig = figure('name',figName);
         hold on
         title(figName);
-        plot(vals(k),'displayname',dataName)
+        plot(times(k),vals(k),'displayname',dataName)
         xlabel('Time [ns]')
         ylabel('Fraction of maze discovered')
         figs(figName) = fig;
     end
 end
+
+for f = figs.values
+    figur = f{1};
+    saveas(figur,strcat('figs/',figur.Name,'.eps'),'epsc');
+end
+
+%save the plots
+
+% %plot dt vs stepps
+% for key = metas.keys
+%     k = key{1}; %god damened cells... 
+%     figName = strcat('dt vs iteraations for ',metas(k).n,' agents on ',metas(k).w,'x',metas(k).h,' map. Easy=',metas(k).e);
+%     dataName = metas(k).a;
+%     if(figs.isKey(figName))
+%         figure(figs(figName));
+%         plot(diff(times(k)),'displayname',dataName);
+%         legend('location','southeast')
+%     else
+%         fig = figure('name',figName);
+%         hold on
+%         title(figName);
+%         plot(diff(times(k)),'displayname',dataName)
+%         xlabel('Iterations')
+%         ylabel('Time for iteration [ns]')
+%         figs(figName) = fig;
+%     end
+% end
