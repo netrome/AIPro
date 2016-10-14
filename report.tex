@@ -57,8 +57,38 @@ algorithm the exploration agents act on local information and frequently report
 back to a base of operations.
 
 \section{Problem formulation}
+A twodimensional maze-like environment is chosen as the setting in which to
+evaluate different approaches to the problem of map generation/exploration.
+The only obstacles that exist in the environment are walls through which the
+agents cannot pass. A number of agents are positioned in the environment and
+their task is to explore the maze as effectively as possible.
 
-Prims maze...
+The environemnt is represented as a two dimensional grid where each cell can
+either be empty or a wall. In addition, the agent's can leave traces in cells
+they pass in order to indicate to other agents that the cell has previously
+been visited. The agents are allowed to move to one of the (non-diagonally)
+adjacent cells at each time step. 
+
+A number of algorithms have been studied and they use different assumptions of
+how much information each agent can access. Some of the algorithms only use
+information of the cells nearby each player while others assume unrestrained
+communcation between the agents and knowledge of all the discovered cells.
+
+These assumptions and  constraints and on the environment imply many
+simplifications of real life scenarios such as search and rescue operations,
+but the environemnt should still suffices to obtain a baseline of the
+algorithm's efficiency.
+
+The mazes used for testing are generated with Prim's algorithm
+\cite{prim1957shortest}. In order to simplify the maze to obtain an environment
+which contains something more similar to isolated obstacles, some walls may be
+randomly removed.
+
+
+
+
+
+
 
 \section{Method(s)}
 
@@ -97,8 +127,8 @@ remaining search.
 The function $g(x)$ is defined as
 %
 $$g(x) = a * \begin{Bmatrix} \text{number of steps} \\ \text{from start to $x$}
-\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at $x$} \\ - \\ \text{
-explored area at start} \end{Bmatrix}$$
+\end{Bmatrix} + b * \begin{Bmatrix} \text{explored area at start} \\ - \\ \text{
+explored area at $x$} \end{Bmatrix}$$
 %
 Since the goal is defined as above, the second term effectivley only matters
 when the search is one step from the goal. This choice of cost function should
