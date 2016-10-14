@@ -110,7 +110,7 @@ data = containers.Map;
 for key = metas.keys
     k = key{1};
     if(metas(k).n ~= '3')
-        figName = strcat('Time_to_goal_vs_agents_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
+        figName = strcat('_to_goal_vs_agents_',metas(k).w,'x',metas(k).h,'_map_Easy=',metas(k).e);
         figName = strrep(figName,'.','');
         dataName = metas(k).a;
         dataName = strrep(dataName,'Player','');
@@ -119,34 +119,51 @@ for key = metas.keys
         dataName = strrep(dataName,'Global','CSG');
         dataName = strrep(dataName,'Closest','CSGI');
         
+        stuff = times(k);
+        stuff = stuff(end);
+        
         if(figs.isKey(figName))
             figure(figs(figName));
             if(data.isKey(dataName))
-                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1))]];
+                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1));stuff]];
             else
-                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1))];
+                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1));stuff];
             end
         else
-            fig = figure('name',figName);
-            hold on
+            figStep = figure('name',strcat('Steps',figName));
+            figTime = figure('name',strcat('Time',figName));
             %title(figName);
             if(data.isKey(dataName))
-                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1))]];
+                data(dataName) = [data(dataName) [str2num(metas(k).n);length(find(vals(k) ~= 1));stuff]];
             else
-                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1))];
+                data(dataName) = [str2num(metas(k).n);length(find(vals(k) ~= 1));stuff];
             end
-            figs(figName) = fig;
+            figs(figName) = figStep;
         end
     end
 end
-figure(fig)
+figure(figStep)
 xlabel('Number of agents')
-ylabel('Itereations till done')
+ylabel('Itereations till fully explored')
 hold on
 for key = data.keys
     k = key{1};
     agents = data(k);
     t = agents(2,:);
+    [agents,i] = sort(agents(1,:));
+    t = t(i);
+    plot(agents,t,'displayname',k);
+end
+legend('location','northeast')
+
+figure(figTime)
+xlabel('Number of agents')
+ylabel('Time till fully explored')
+hold on
+for key = data.keys
+    k = key{1};
+    agents = data(k);
+    t = agents(3,:);
     [agents,i] = sort(agents(1,:));
     t = t(i);
     plot(agents,t,'displayname',k);
