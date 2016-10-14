@@ -90,13 +90,80 @@ randomly removed.
 
 
 
+Discrete cells...
+
+Agents move one cell at the time, cells adjecant to visited cells are found.
+
+Information dropping in cells... Motivate by RFID
+
+Global information / communication possibility.
+
 \section{Method(s)}
 
 \subsection{Ants}
+A number of different techniques have been developed to coordinate multiple
+agents in exploration tasks. The \textit{Ants} algorithm is a commonly used
+technique for this. In the \textit{Ants} algorithm, the agents communicate with
+eachother through a pheromone. Each cell contains a certain
+pheromone level. When an agent visits a cell, the pheromone level of the cell is
+increased. The desicion making process of the agents is designed such that an
+agent chooses to move to the neighbouring cell with the lowest pheromone level.
+
+This desicion process is as the name of the algorithm suggests, inspired by
+ants. A major advantage of the \textit{Ants} algorithm is that the
+agents only operate on local information. Moreover, the desicion making process is
+fast and computationally efficient. The algorithm also guarantees that the whole
+maze will be explored in finite time. On the other hand the nature of the model
+can cause ants to get stuck in local areas of low pheromone levels for quite
+some time before the level has risen enough so that the ants can move on towards
+unexplored spaces. This may cause an unneccessary high level of revisitations of cells.
 
 \subsection{Multiple Depth First Search (MDFS)}
 
 \subsection{Deep Ants}
+In the current problem formulation, the agents are assumed to be able to
+communicate directly with eachother. Therefore algorithms which are created to
+operate only on local information may be modified for increased performance. The
+\textit{Deep Ants} algorithm is a mofication of the \textit{Ants} algorithm
+where this knowledge is used.
+
+The \textit{Deep Ants} algorithm is in the same manner as the \textit{Ants}
+algorithm a decentralized planning algorithm where the agents plan their actions
+individually and independently of eachother, with respect to the current state
+of the area. There is two key differences
+between the \textit{Deep Ants} algorithm and the \textit{Ants} algorithm. The
+first difference is that when an agent visits a cell in the \textit{Deep Ants}
+algorithm, not only is the pheromone level of the cell increased by a level $l_1$ but also the
+pheromone level of the neighbouring cells are increased by a level $l_2$ so that
+$l_2 * n = l_1$. Here $n$ is a parameter which controls the ratio of the
+pheormone levels. 
+
+The other key difference between the \textit{Deep Ants} and the \textit{Ants}
+algorithm is the desicion making process. In the regular \textit{Ants} algorithm
+the goal is to minimize the encountered pheromone level in the next step for the
+agent. In the \textit{Deep Ants} algorithm the goal is to move to the cell
+$\mathbf{x}$ that minimizes
+
+$$ p_d(\mathbf{x}) = p_1(\mathbf{x}) + \begin{cases} \text{min}_i
+  \left(p_{d-1}(\mathbf{x_i}) \right)  & \text{if } d > 1 \\
+  l(\mathbf{x}) & \text{if } d = 1 \end{cases}$$
+
+where $l(\mathbf{x})$ is the pheromone level at cell $\mathbf{x}$ and
+$\mathbf{x_i}$ is the i:th cell that is adjecant to cell $\mathbf{x}$. The index
+$d$ is the search depth and is a parameter in the model. This means that the
+agents in the \textit{Deep Ants} algorithm tries to minimize the total amount of
+encountered pheromone in the next $d$ steps.  
+
+It is important to keep in mind that it is impossible for the agents to know
+what moves can be performed in the unexplored area. In this algorithms the
+Agents are naive and assumes every move is possible outside of the explored area.
+
+The benefit of the \textit{Deep Ants} approach compared to the \textit{Ants}
+algorithm is that the agents can chose to move to areas of higher pheromone
+levels in case there is a low feromone area on the other side of it. Therefore
+it should be less likely that the agents be trapped in a smaller area a longer
+period of time. The cost of this is that the algorithm is more computationally
+demanding and requires a collective knowledge base.
 
 \subsection{Decentralized Search with Global Information}
 
