@@ -444,4 +444,33 @@ public class Maze {
 			}}
 		return freePos.get((int)(random.nextDouble()*freePos.size()));
 	}
+
+
+	public static void main(String[] args){
+
+        Maze m = new Maze();
+
+        m.primsMaze(50, 50);
+
+        m.easyfy(1);
+
+        MazeGui gui = new MazeGui(m);
+
+
+        for (int x = 0; x < m.getWidth(); x++){
+            for (int y = 0; y < m.getHeight(); y++){
+
+                m.getCell(x, y).setFound(true);
+
+            }
+        }
+
+        try {
+            Thread.sleep(1000000);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+    }
+
 }
